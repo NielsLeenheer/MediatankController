@@ -1,0 +1,58 @@
+Sweet Titles (c) Creative Commons 2005
+http://creativecommons.org/licenses/by-sa/2.5/
+Original Author: Dustin Diaz
+Script Name: Sweet Titles
+Script URI: http://www.dustindiaz.com/sweet-titles/
+Script Description: JavaScript fading tooltips. An unobtrusive accessible user-friendly toolTip that looks 'sweet' 
+Includes Support for <a>, <acronym>, and <abbr> as well as the accesskey attribute on the <a> element.
+
+Zip Contents:
+1) This Documentation
+2) Working Demo
+2) sweetTitles.css
+3) addEvent.js
+4) sweetTitles.js
+
+
+///// IMPLEMENTATION /////////
+ok, listen up because this is real simple.
+First off, this was meant to be a very light-weight solution to making cool looking toolTips that give the designer a lot of flexibility. 
+There are several requests out there asking for additions or modifications to suite different needs. This implementation is to serve as 
+a 'one-size fits all' and developed at the most generic level of granularity.
+
+
+
+1) Include the following JavaScript files in the head of your document as follows:
+
+ <script type="text/javascript" src="/js/addEvent.js"></script>
+ <script type="text/javascript" src="/js/sweetTitles.js"></script>
+
+If you want to chuck them all into the same file. Have at it.
+
+
+2) Include the following style sheet (or append to an existing one)
+
+  @import "css/sweetTitles.css";
+
+
+That's it. You're done!
+
+
+///// CHANGELOG //////////////
+----------------------------
+LATEST CHANGES
+========================================
+* added mouse scroll support
+* speed up implementation even more!!!
+* fixed the MSIE fade I broke from last time
+========================================
+* removed scrollbar jump
+* speed up implementation
+* better OO
+* removed hard-coded allowable elements
+========================================
+* acronym, abbr support
+* accesskey support
+* right & bottom screen repositioning
+* quick array access for adding custom elements
+=========================================

@@ -1,0 +1,337 @@
+		
+body#remote {
+	background: transparent;
+}
+		
+body#remote #main {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	
+	width: 240px;
+	height: 500px;
+	background: transparent url(images/remote.png) top left no-repeat;
+}		
+
+body#remote #panel {
+	position: relative;
+	top: 30px;
+	left: 190px;
+	
+	width: 220px;
+	height: 470px;
+	background: transparent url(images/panel.png) top right no-repeat;
+}
+
+		
+body#remote a {
+	position: absolute;
+	display: block;
+	text-indent: -2000em;
+	background: transparent;
+	z-index: 1000;
+	cursor: pointer;
+	border: none;
+}
+body#remote img#status {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+
+body#remote #nickname {
+	position: absolute;
+	color: #ccc;
+	font-size: 0.7em;	
+	font-weight: bold;
+	text-align: right;
+}
+
+
+body#settings {
+	background: #666;
+	color: #fff;
+	font-size: 0.8em;
+}
+
+body#settings ul.header {
+	height: 80px;
+	background: transparent url(images/header.png) top left repeat-x;	
+	white-space: nowrap;
+	
+	list-style-type: none;
+	margin: 0;
+	padding: 0 0 0 20px;
+}
+
+body#settings ul.header li {
+	float: left;
+	height: 70px;
+	padding: 0 16px;
+	line-height: 70px;
+	
+	font-size: 1.4em;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	
+	cursor: pointer;
+}
+body#settings.mediatankSelected ul.header li#mediatankTab,
+body#settings.shortcutsSelected ul.header li#shortcutsTab,
+body#settings.jukeboxSelected ul.header li#jukeboxTab {
+	background: transparent url(images/header-active.png) top left repeat-x;	
+}
+
+body#settings .panel {
+	display: none;
+	padding: 20px;
+}
+body#settings.mediatankSelected #mediatankPanel,
+body#settings.shortcutsSelected #shortcutsPanel,
+body#settings.jukeboxSelected #jukeboxPanel {
+	display: block;
+}
+
+body#settings i {
+	font-size: 0.8em;
+	line-height: 180%;
+}
+body#settings input {
+	width: 550px;
+	font-size: 1.6em;
+	font-weight: bold;
+	background: #888;
+	color: #fff;
+	border: 1px solid #666;
+	margin: 8px 0 24px;
+}
+body#settings div.advanced {
+	margin: 20px 0 0;
+}
+body#settings div.advanced input {
+	font-size: 1.0em;
+}
+body#settings div#shortcutsPanel select {
+	width: 130px;
+}
+body#settings div#shortcutsPanel input {
+	width: 415px;
+}
+body#settings div#shortcutsPanel button {
+	display: none;
+	width: 20px;
+	height: 20px;
+}
+body#settings button#ok {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	
+	width: 160px;
+	font-size: 1em;
+}
+
+
+body#browser {
+	background: #666;
+	font-size: 0.85em;
+	padding: 80px 0 8px 0;
+}
+
+body#browser div.header {
+	position: fixed;
+	z-index: 10;
+	
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 60px;
+	
+	background: transparent url(images/header.png) top left repeat-x;	
+	padding: 20px 15px 0 70px;
+	white-space: nowrap;
+}
+
+body#browser div#loading {
+	position: absolute;
+	top: 180px;
+	height: 80px;
+	left: 0;
+	width: 100%;
+	
+	background: transparent url(images/ajax-loader.gif) center center no-repeat;
+	z-index: 100;	
+}
+
+body#browser button#up {
+	position: absolute;
+	top: 10px;
+	left: 15px;
+	width: 50px;
+	height: 50px;
+	
+	display: block;
+	border: none;
+	background: transparent url(images/back.png) top left no-repeat;	
+	text-indent: -2000em;
+	cursor: pointer;
+}
+body#browser button#queue {
+	float: right;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.9em;
+	text-align: left;
+	text-indent: 26px;
+	color: #fff;
+	
+	width: 182px;
+	height: 32px;
+	
+	border: none;
+	background: transparent url(images/play_all_music.png) top left no-repeat;	
+	cursor: pointer;
+}
+
+body#browser span#directories {
+	position: absolute;
+	left: 70px;
+	top: 15px;
+	right: 200px;
+
+	line-height: 40px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #fff;
+}
+
+body#browser span#directories span {
+	font-size: 1.2em;
+	font-weight: bold;
+	line-height: 40px;
+
+	padding: 14px 24px 14px 0;
+	background: transparent url(images/dropdown.png) center right no-repeat;
+	
+	cursor: pointer;
+}
+
+body#browser ul {
+	margin: 0;
+	padding: 10px 0 0;
+	font-size: 0.85em;
+}
+
+body#browser ul li {
+	margin: 0;
+	padding: 0 8px;
+}
+body#browser ul li a {
+	display: block;
+	color: #fff;
+	text-decoration: none;
+	background: transparent url(images/list_video.png) 12px 3px no-repeat;
+	padding: 0 0 0 44px;
+	line-height: 30px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+body#browser ul li a.directory {
+	background-image: url(images/list_folder.png);
+}
+body#browser ul li a.audio {
+	background-image: url(images/list_music.png);
+}
+body#browser ul li a:hover {
+	background-color: #555;
+}
+
+
+
+body#debug {
+	background: #ddd;
+	padding: 20px;
+	font-size: 0.8em;
+}
+
+body#debug ul {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	
+	margin: 0;
+	padding: 20px;
+	list-style-type: none;
+	
+	overflow: auto;
+}
+
+body#debug ul li {
+	margin: 0 0 1em 0;
+	padding: 0;
+}
+body#debug ul li span {
+	font-weight: bold;
+}
+body#debug ul li pre {
+	background: #fff;
+	border: 1px solid #ccc;
+	font-size: 1.1em;
+	
+	overflow-x: hidden;
+}
+
+
+
+body#about {
+	background: #666 url(images/remote.png) -100px -50px no-repeat;
+}
+
+body#about .header {
+	margin: 20px 20px 0 140px;
+}
+
+body#about .header h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.6em;
+	font-weight: bold;
+	color: #fff;
+	
+	margin: 0 0 6px;
+}
+body#about span#version {
+	font-size: 0.5em;
+}
+body#about .header h2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.9em;
+	font-weight: bold;
+	color: #fff;
+
+	margin: 0;
+}
+
+
+body#about .footer {
+	position: absolute;
+	top: 100px;
+	left: 140px; 
+	right: 20px;
+	min-height: 120px;
+	
+	background: transparent url(images/lenherovsky.gif) top right no-repeat;
+	padding: 0 140px 0 0;
+	
+	color: #fff;
+	font-size: 0.70em;
+	line-height: 180%;
+}
+
+body#about button {
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+	font-size: 0.8em;
+	width: 120px;
+}

@@ -1,0 +1,44 @@
+<html>
+	<head>
+        <title>Browse</title>
+        <link href="application.css" rel="stylesheet" type="text/css"/>
+
+        <script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+		<script type="text/javascript" src="lib/prototype/prototype.js"></script>
+		<script type="text/javascript" src="lib/scriptaculous/effects.js"></script>
+		<script type="text/javascript" src="controller.js"></script>
+		<script type="text/javascript" src="settings.js"></script>
+		<script type="text/javascript" src="browser.js"></script>
+   	</head>
+	
+    <body id='browser'>
+    	<div class='header'>
+			<button id='up'>Go back</button>
+	    	<span id='directories'></span>
+			<button id='queue'>Play all music files</button>
+		</div>
+		
+		<div id='loading' style='display: none;'></div>
+		
+    	<ul id='list'></ul>
+
+        <script type="text/javascript">
+        <!--
+
+			var mediaLocation = settings.mediaLocation;
+			if (mediaLocation == '' || mediaLocation.substr(-1) != '/') {
+				mediaLocation += '/';
+			}
+		
+			new Browser(mediaLocation, {
+				dropdown: 	$('directories'),
+				list:		$('list'),
+				up:			$('up'),
+				queue:		$('queue'),
+				loading:	$('loading')
+			})
+		
+		//-->
+		</script>
+	</body>
+</html>

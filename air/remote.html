@@ -1,0 +1,512 @@
+<html>
+	<head>
+        <title>MediatankController</title>
+        <link href="application.css" rel="stylesheet" type="text/css"/>
+        <link href="lib/tooltip/css/sweetTitles.css" rel="stylesheet" type="text/css"/>
+
+        <script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+		<script type="text/javascript" src="lib/prototype/prototype.js"></script>
+		<script type="text/javascript" src="lib/scriptaculous/effects.js"></script>
+		<script type="text/javascript" src="lib/tooltip/js/sweetTitles.js"></script>
+		<script type="text/javascript" src="lib/md5/md5.js"></script>
+
+		<script type="text/javascript" src="controller.js"></script>
+		<script type="text/javascript" src="settings.js"></script>
+		<script type="text/javascript" src="debug.js"></script>
+
+		<script type="text/javascript">
+		<!--
+		
+			var aboutWindow = null;
+			var settingsWindow = null;
+			var browserWindow = null;
+			var panelVisible = false;
+				
+			var debug = new DebugLogger();
+				
+
+			var mediatank = new MediatankController(settings, {
+				onConnect: function() {
+					$('status').show();
+				},
+				onClose: function() {
+					$('status').hide();
+				}
+			});
+			
+		//-->
+		</script>
+   	</head>
+	
+    <body id='remote'>
+    	<div id='panel' style='width: 0; overflow: hidden;'>
+			<!-- colours -->
+	    	<a onclick='mediatank.red();' style='width: 30px; height: 22px; right: 156px; top: 60px;'>Red</a>
+	    	<a onclick='mediatank.green();' style='width: 30px; height: 22px; right: 122px; top: 60px;'>Green</a>
+	    	<a onclick='mediatank.yellow();' style='width: 30px; height: 22px; right: 88px; top: 60px;'>Yellow</a>
+	    	<a onclick='mediatank.blue();' style='width: 30px; height: 22px; right: 54px; top: 60px;'>Blue</a>
+
+			<!-- numbers -->
+	    	<a onclick='mediatank.number(1);' style='width: 38px; height: 25px; right: 148px; top: 104px;'>1</a>
+	    	<a onclick='mediatank.number(2);' style='width: 38px; height: 25px; right: 100px; top: 104px;'>2</a>
+	    	<a onclick='mediatank.number(3);' style='width: 38px; height: 25px; right: 52px; top: 104px;'>3</a>
+	    	<a onclick='mediatank.number(4);' style='width: 38px; height: 25px; right: 148px; top: 140px;'>4</a>
+	    	<a onclick='mediatank.number(5);' style='width: 38px; height: 25px; right: 100px; top: 140px;'>5</a>
+	    	<a onclick='mediatank.number(6);' style='width: 38px; height: 25px; right: 52px; top: 140px;'>6</a>
+	    	<a onclick='mediatank.number(7);' style='width: 38px; height: 25px; right: 148px; top: 175px;'>7</a>
+	    	<a onclick='mediatank.number(8);' style='width: 38px; height: 25px; right: 100px; top: 175px;'>8</a>
+	    	<a onclick='mediatank.number(9);' style='width: 38px; height: 25px; right: 52px; top: 175px;'>9</a>
+	    	<a onclick='mediatank.del();' style='width: 38px; height: 25px; right: 148px; top: 208px;' title='Delete'>Delete</a>
+	    	<a onclick='mediatank.number(0);' style='width: 38px; height: 25px; right: 100px; top: 208px;'>0</a>
+	    	<a onclick='mediatank.caps();' style='width: 38px; height: 25px; right: 52px; top: 208px;' title='Caps Lock'>Caps</a>
+
+			<!-- row one -->
+	    	<a onclick='mediatank.angle();' style='width: 36px; height: 26px; right: 53px; top: 268px;' title='Angle'>Angle</a>
+	    	<a onclick='mediatank.repeat();' style='width: 30px; height: 26px; right: 89px; top: 268px;' title='Repeat'>Repeat</a>
+	    	<a onclick='mediatank.zoom();' style='width: 30px; height: 26px; right: 119px; top: 268px;' title='Zoom'>Zoom</a>
+	    	<a onclick='mediatank.timeseek();' style='width: 36px; height: 26px; right: 149px; top: 268px;' title='Timeseek'>Timeseek</a>
+			
+			<!-- row two -->
+	    	<a onclick='mediatank.eject();' style='width: 36px; height: 26px; right: 53px; top: 306px;' title='Eject'>Eject</a>
+	    	<a onclick='mediatank.tvmode();' style='width: 30px; height: 26px; right: 89px; top: 306px;' title='TV Mode'>TV Mode</a>
+	    	<a onclick='mediatank.setup();' style='width: 30px; height: 26px; right: 119px; top: 306px;' title='Setup'>Setup</a>
+	    	<a onclick='mediatank.source();' style='width: 36px; height: 26px; right: 149px; top: 306px;' title='Source'>Source</a>
+			
+			<!-- volume -->
+	    	<a onclick='mediatank.volumeup();' style='width: 35px; height: 35px; right: 53px; top: 346px;' title='Volume Up'>Volume Up</a>
+	    	<a onclick='mediatank.volumedown();' style='width: 35px; height: 35px; right: 91px; top: 346px;' title='Volume Down'>Volume Down</a>
+		</div>
+		
+		<div id='main'>
+	    	<!-- status image -->	
+	    	<a href='#' id='togglePanel' style='width: 52px; height: 52px; left: 96px; top: 199px;' title='Slide extra panel'>
+		    	<img id='status' src='images/active.png' style='display: none;' />
+			</a>
+		
+			<!-- top -->    	
+			<span id='nickname' style='top: 28px; right: 100px;'></span>
+	    	<a href='#' id='menu' style='width: 18px; height: 18px; left: 147px; top: 25px;'>Menu</a>
+	    	<a href='#' id='minimize' style='width: 18px; height: 18px; left: 170px; top: 25px;'>Minimize</a>
+	    	<a href='#' id='close' style='width: 18px; height: 18px; left: 188px; top: 25px;'>Close</a>
+	    	<a onclick='mediatank.power();' style='width: 34px; height: 34px; left: 33px; top: 33px;' title='Power'>Power</a>
+
+			<!-- navigation controller -->
+	    	<a onclick='mediatank.ok();' style='width: 37px; height: 37px; left: 102px; top: 108px;'>OK</a>
+	    	<a onclick='mediatank.up();' style='width: 52px; height: 37px; left: 96px; top: 66px;'>Up</a>
+	    	<a onclick='mediatank.down();' style='width: 52px; height: 37px; left: 96px; top: 153px;'>Down</a>
+	    	<a onclick='mediatank.left();' style='width: 40px; height: 49px; left: 60px; top: 103px;'>Left</a>
+	    	<a onclick='mediatank.right();' style='width: 40px; height: 49px; left: 144px; top: 103px;'>Right</a>
+	    	<a onclick='mediatank.home();' style='width: 34px; height: 34px; left: 40px; top: 183px;' title='Home'>Home</a>
+	    	<a onclick='mediatank.back();' style='width: 34px; height: 34px; left: 166px; top: 183px;' title='Return'>Return</a>
+		
+			<!-- playback options -->
+	    	<a onclick='mediatank.subtitle();' style='width: 43px; height: 26px; left: 53px; top: 251px;' title='Subtitle'>Subtitle</a>
+	    	<a onclick='mediatank.audio();' style='width: 43px; height: 26px; left: 99px; top: 251px;' title='Audio'>Audio</a>
+	    	<a onclick='mediatank.info();' style='width: 43px; height: 26px; left: 146px; top: 251px;' title='Info'>Info</a>
+
+			<!-- configuration and main navigation -->
+	    	<a href='#' id='settings' style='width: 43px; height: 26px; left: 53px; top: 288px;'>Setup</a>
+	    	<a onclick='mediatank.menu();' style='width: 43px; height: 26px; left: 99px; top: 288px;' title='Menu'>Menu</a>
+	    	<a href='#' id='browse' style='width: 43px; height: 26px; left: 146px; top: 288px;'>Source</a>
+
+			<!-- shortcuts -->
+	    	<a onclick='mediatank.shortcut(1);' style='width: 33px; height: 18px; left: 59px; top: 327px;' title='Shortcut #1'>Shortcut #1</a>
+	    	<a onclick='mediatank.shortcut(2);' style='width: 29px; height: 18px; left: 92px; top: 327px;' title='Shortcut #2'>Shortcut #2</a>
+	    	<a onclick='mediatank.shortcut(3);' style='width: 29px; height: 18px; left: 121px; top: 327px;' title='Shortcut #3'>Shortcut #3</a>
+	    	<a onclick='mediatank.shortcut(4);' style='width: 33px; height: 18px; left: 150px; top: 327px;' title='Shortcut #4'>Shortcut #4</a>
+
+			<!-- playback controller -->
+	    	<a onclick='mediatank.previous();' style='width: 37px; height: 22px; left: 46px; top: 357px;'>Previous</a>
+	    	<a onclick='mediatank.rewind();' style='width: 37px; height: 22px; left: 85px; top: 357px;'>Rewind</a>
+	    	<a onclick='mediatank.forward();' style='width: 37px; height: 22px; left: 124px; top: 357px;'>Forward</a>
+	    	<a onclick='mediatank.next();' style='width: 37px; height: 22px; left: 163px; top: 357px;'>Next</a>
+	    	<a onclick='mediatank.stop();' style='width: 37px; height: 37px; left: 51px; top: 388px;'>Stop</a>
+	    	<a onclick='mediatank.play();' style='width: 55px; height: 55px; left: 93px; top: 394px;'>Play</a>
+	    	<a onclick='mediatank.pause();' style='width: 37px; height: 37px; left: 156px; top: 388px;'>Pause</a>
+		</div>
+		
+
+		<script type='text/javascript'>
+		<!--
+			
+				$('nickname').update(settings.name);
+
+
+				function openBrowserWindow() {
+					if (!browserWindow) {
+						var init = new air.NativeWindowInitOptions();
+						var bounds = new air.Rectangle((air.Capabilities.screenResolutionX - 600) / 2, (air.Capabilities.screenResolutionY - 500) / 2, 600, 500);
+						
+						init.minimizable = true;
+						init.maximizable = true;
+						init.resizable = true;
+						
+						browserWindow = air.HTMLLoader.createRootWindow(true, init, true, bounds);
+						browserWindow.load(new air.URLRequest(air.File.applicationDirectory.resolvePath('browser.html').url));
+						browserWindow.window.mediatank = mediatank;
+						browserWindow.window.settings = settings;
+						browserWindow.window.debug = debug;
+
+						browserWindow.window.nativeWindow.addEventListener(air.Event.CLOSE, function() {
+							browserWindow = null;
+						});
+					} else {
+						if (browserWindow.window.nativeWindow.displayState == air.NativeWindowDisplayState.MINIMIZED) {
+							browserWindow.window.nativeWindow.restore();
+						} 
+						
+						browserWindow.window.nativeWindow.orderToFront();
+					}
+				}
+
+				function openAboutWindow() {
+					if (!aboutWindow) {
+						var init = new air.NativeWindowInitOptions();
+						var bounds = new air.Rectangle((air.Capabilities.screenResolutionX - 500) / 2, (air.Capabilities.screenResolutionY - 500) / 2, 500, 500);
+						
+						init.minimizable = true;
+						init.maximizable = false;
+						init.resizable = false;
+						
+						aboutWindow = air.HTMLLoader.createRootWindow(true, init, false, bounds);
+						aboutWindow.load(new air.URLRequest(air.File.applicationDirectory.resolvePath('about.html').url));
+						aboutWindow.window.nativeWindow.addEventListener(air.Event.CLOSE, function() {
+							aboutWindow = null;
+						});
+					} else {
+						if (aboutWindow.window.nativeWindow.displayState == air.NativeWindowDisplayState.MINIMIZED) {
+							aboutWindow.window.nativeWindow.restore();
+						} 
+						
+						aboutWindow.window.nativeWindow.orderToFront();
+					}
+				}
+
+				function openSettingsWindow() {
+					if (!settingsWindow) {
+						var init = new air.NativeWindowInitOptions();
+						var bounds = new air.Rectangle((air.Capabilities.screenResolutionX - 600) / 2, (air.Capabilities.screenResolutionY - 540) / 2, 600, 540);
+					
+						init.minimizable = false;
+						init.maximizable = false;
+						init.resizable = false;
+					
+						settingsWindow = air.HTMLLoader.createRootWindow(true, init, false, bounds);
+						settingsWindow.load(new air.URLRequest(air.File.applicationDirectory.resolvePath('settings.html').url));
+						settingsWindow.window.mediatank = mediatank;
+						settingsWindow.window.settings = settings;
+						settingsWindow.window.debug = debug;
+					
+						settingsWindow.window.nativeWindow.addEventListener(air.Event.CLOSE, function() {
+							if (browserWindow) {
+								browserWindow.window.nativeWindow.close();
+							}
+
+							mediatank.close();
+							mediatank = new MediatankController(settings, {
+								onConnect: function() {
+									$('status').show();
+								},
+								onClose: function() {
+									$('status').hide();
+								}
+							});
+						
+							settingsWindow = null;
+						});					
+					}
+				}
+		
+		
+		
+				var keyboardMode = false;
+				
+		
+		
+		
+				var contextMenu = new air.NativeMenu(); 
+			    var command = contextMenu.addItem(new air.NativeMenuItem("Keyboard mode")); 
+			    command.addEventListener(air.Event.SELECT, function(event) {
+					if (event.target.checked) {
+						event.target.checked = false;
+						keyboardMode = false;
+					} else {
+						event.target.checked = true;
+						keyboardMode = true;
+					}
+				}); 
+		
+			    var command = contextMenu.addItem(new air.NativeMenuItem("", true)); 
+
+			    var command = contextMenu.addItem(new air.NativeMenuItem("Open audio stream...")); 
+				command.addEventListener(air.Event.SELECT, function(event) {
+					if (stream = prompt('Audio stream URL:')) {
+						if (stream != '') {
+							mediatank.playFile(stream, 'audio');
+						}
+					}
+				}); 
+			
+			    var command = contextMenu.addItem(new air.NativeMenuItem("Open video stream...")); 
+				command.addEventListener(air.Event.SELECT, function(event) {
+					if (stream = prompt('Video stream URL:')) {
+						if (stream != '') {
+							mediatank.playFile(stream, 'video');
+						}
+					}
+				}); 
+			
+			    var command = contextMenu.addItem(new air.NativeMenuItem("", true)); 
+
+			    var command = contextMenu.addItem(new air.NativeMenuItem("Browse...")); 
+				command.addEventListener(air.Event.SELECT, function(event) {
+					openBrowserWindow();
+				}); 
+			
+			    var command = contextMenu.addItem(new air.NativeMenuItem("Settings...")); 
+				command.addEventListener(air.Event.SELECT, function(event) {
+					openSettingsWindow();
+				}); 
+			
+			    var command = contextMenu.addItem(new air.NativeMenuItem("", true)); 
+
+			    var command = contextMenu.addItem(new air.NativeMenuItem("About...")); 
+				command.addEventListener(air.Event.SELECT, function(event) {
+					openAboutWindow();
+				}); 
+			
+			    var command = contextMenu.addItem(new air.NativeMenuItem("", true)); 
+
+			    var command = contextMenu.addItem(new air.NativeMenuItem("Add a new remote")); 
+				command.addEventListener(air.Event.SELECT, function(event) {
+					remote.controller.add();
+				}); 
+
+			    var command = contextMenu.addItem(new air.NativeMenuItem("Remove this remote")); 
+				command.addEventListener(air.Event.SELECT, function(event) {
+					closeWindow();
+					window.nativeWindow.close();
+
+					remote.remove();
+				});
+
+			    var command = contextMenu.addItem(new air.NativeMenuItem("", true)); 
+
+			    var command = contextMenu.addItem(new air.NativeMenuItem("Close")); 
+				command.keyEquivalent = "f4"; 
+				command.keyEquivalentModifiers = [air.Keyboard.ALTERNATE]
+				command.addEventListener(air.Event.SELECT, function(event) {
+					closeWindow();
+					window.nativeWindow.close();
+				}); 
+		
+		
+		
+		
+		
+				Event.observe(document, 'contextmenu', function(event) {
+					event.preventDefault(); 
+					contextMenu.display(window.nativeWindow.stage, event.clientX, event.clientY); 
+				});
+		
+				document.onselectstart = function(){return false;}
+				
+				Event.observe(document, 'mousedown', function(e) { 
+					window.nativeWindow.startMove(); 
+				});
+		
+				Event.observe('menu', 'click', function(e) {
+					contextMenu.display(window.nativeWindow.stage, event.clientX, event.clientY); 
+				});
+
+				Event.observe('minimize', 'click', function(e) {
+					window.nativeWindow.minimize();
+					Event.stop(e);
+				});
+
+				Event.observe('close', 'click', function(e) {
+					closeWindow();
+					window.nativeWindow.close();
+					Event.stop(e);
+				});
+
+				Event.observe('browse', 'click', function(e) {
+					openBrowserWindow();
+					Event.stop(e);
+				});
+
+				Event.observe('settings', 'click', function(e) {
+					openSettingsWindow();
+					Event.stop(e);
+				});
+				
+				Event.observe('togglePanel', 'click', function(e) {
+					if (e.ctrlKey) {
+						debug.start();
+						return;
+					}
+					
+					if (e.shiftKey) {
+						mediatank.close();
+						window.setTimeout(function(){
+							mediatank = new MediatankController(settings, {
+								onConnect: function(){
+									$('status').show();
+								},
+								onClose: function(){
+									$('status').hide();
+								}
+							});
+						}, 2000);
+						
+						return;
+					}
+					
+					if (panelVisible) {
+						new Effect.Morph('panel', {
+							style: 'top: 30px; width: 0px;', 
+							duration: 0.8, 
+							afterFinish: function() {
+								Element.hide('panel');
+							}
+						});
+					} else {
+						Element.show('panel');
+						
+						new Effect.Morph('panel', {
+							style: 'top: 0px; width: 220px;', 
+							duration: 0.8 
+						});
+					}
+					
+					panelVisible = !panelVisible;
+				});
+				
+				Event.observe(document, 'keypress', function(e){
+					if (keyboardMode) {
+						if (e.charCode == 13 || (e.charCode >= 32 && e.charCode <= 126)) {
+							air.trace(e.charCode);
+					
+							mediatank.sendKeyCode(e.charCode);
+						}
+					}
+				});
+					
+				Event.observe(document, 'keydown', function(e){
+					if (keyboardMode) {
+						switch (e.keyCode) {
+							case 8:
+							case 9:
+							case 27:
+							case 127:
+								mediatank.sendKeyCode(e.keyCode);
+								break;
+
+							case 37:
+								mediatank.sendKeyCode(170);
+								break;
+							case 38:
+								mediatank.sendKeyCode(168);
+								break;
+							case 39:
+								mediatank.sendKeyCode(171);
+								break;
+							case 40:
+								mediatank.sendKeyCode(169);
+								break;
+						}
+					}
+					
+					if (!keyboardMode) {
+						switch (e.keyCode) {
+							case 8:
+								mediatank.back();
+								break;
+							case 13:
+								mediatank.ok();
+								break;
+							case 27:
+								mediatank.stop();
+								break;
+							case 32:
+								mediatank.play();
+								break;
+							case 37:
+								mediatank.left();
+								break;
+							case 38:
+								mediatank.up();
+								break;
+							case 39:
+								mediatank.right();
+								break;
+							case 40:
+								mediatank.down();
+								break;
+							case 72:
+								mediatank.home();
+								break;
+							case 80:
+								mediatank.pause();
+								break;
+							case 48:
+							case 49:
+							case 50:
+							case 51:
+							case 52:
+							case 53:
+							case 54:
+							case 55:
+							case 56:
+							case 57:
+								mediatank.sendKeyCode(e.keyCode + 193);
+								
+							default:
+								//air.trace(e.keyCode);
+								break;
+						}
+					}
+				});
+
+
+				function closeWindow() {
+					// Save window position
+					settings.xPos = window.nativeWindow.x;		
+					settings.yPos = window.nativeWindow.y;		
+					settings.save();
+
+					// Stop the debugger
+					debug.stop();
+					
+					// Close child windows
+					if (settingsWindow) {
+						settingsWindow.window.nativeWindow.close();
+					} 
+
+					if (aboutWindow) {
+						aboutWindow.window.nativeWindow.close();
+					} 
+
+					if (browserWindow) {
+						browserWindow.window.nativeWindow.close();
+					}
+					
+					remote.close();
+				}
+
+				// Close child windows when closing the remote
+				window.nativeWindow.addEventListener(air.Event.CLOSING, function() {
+					closeWindow();
+				});
+
+
+				air.NativeApplication.nativeApplication.addEventListener(air.Event.EXITING, function() {
+					//closeWindow();
+				});
+				
+				
+				
+		//-->
+		</script>
+    </body>
+</html>

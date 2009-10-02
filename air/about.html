@@ -1,0 +1,50 @@
+<html>
+	<head>
+        <title>About MediatankController</title>
+        <link href="application.css" rel="stylesheet" type="text/css"/>
+
+        <script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+		<script type="text/javascript" src="lib/prototype/prototype.js"></script>
+        <script type="text/javascript">
+        <!--
+
+			/* Keep window always in front */
+	        window.nativeWindow.alwaysInFront = true;
+		
+			Event.observe(document, "dom:loaded", function() {
+			
+				var xmlString = air.NativeApplication.nativeApplication.applicationDescriptor;
+				var name = /<name>(.*)<\/name>/.exec(xmlString)[1];
+				var description = /<description>(.*)<\/description>/.exec(xmlString)[1];
+				var version = /<version>(.*)<\/version>/.exec(xmlString)[1];
+				
+				$('name').update(name);
+				$('version').update(version);
+				$('description').update(description);
+				
+				Event.observe('ok', 'click', function() {
+					window.close();
+				});
+			});
+				
+		//-->
+		</script>
+   	</head>
+	
+    <body id='about'>
+    	<div class='header'>
+    		<h1><span id='name'></span> <span id='version'></span></h1>
+			<h2><span id='description'></span></h2>
+		</div>
+		
+		<div class='footer'>
+			Copyright 2009<br />
+			Created by Niels Leenheer<br />
+			http://rakaz.nl<br />			
+			<br />
+			Check the forum at www.networkedmediatank.com for support
+		</div>
+		
+		<button id='ok'>Close</button>
+	</body>
+</html>

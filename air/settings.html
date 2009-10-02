@@ -1,0 +1,206 @@
+<html>
+	<head>
+        <title>Settings</title>
+        <link href="application.css" rel="stylesheet" type="text/css"/>
+
+        <script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+		<script type="text/javascript" src="lib/prototype/prototype.js"></script>
+        <script type="text/javascript">
+        <!--
+
+			/* Keep window always in front */
+	        window.nativeWindow.alwaysInFront = true;
+		
+			Event.observe(document, "dom:loaded", function() {
+				$('mediatankTab').observe('click', function() {
+					$(document.body).addClassName('mediatankSelected');
+					$(document.body).removeClassName('shortcutsSelected');
+					$(document.body).removeClassName('jukeboxSelected');
+				});
+				
+				$('shortcutsTab').observe('click', function() {
+					$(document.body).removeClassName('mediatankSelected');
+					$(document.body).addClassName('shortcutsSelected');
+					$(document.body).removeClassName('jukeboxSelected');
+				});
+
+				$('jukeboxTab').observe('click', function() {
+					$(document.body).removeClassName('mediatankSelected');
+					$(document.body).removeClassName('shortcutsSelected');
+					$(document.body).addClassName('jukeboxSelected');
+				});
+				
+				
+				
+				
+				$('address').setValue(settings.address);
+				$('name').setValue(settings.name);
+				$('busyboxLocation').setValue(settings.busyboxLocation);
+				$('jukeboxConnector').setValue(settings.jukeboxConnector);
+				$('mediaLocation').setValue(settings.mediaLocation);
+				$('gayaHome').setValue(settings.gayaHome);
+
+				if (mediatank.usingBusybox) {
+					if (mediatank.usingBusybox == settings.busyboxLocation) {
+						$('busyboxInfo').update('Found busybox26 at your specified location');
+					} else {
+						$('busyboxInfo').update('Found busybox26 at ' + mediatank.usingBusybox + ': leave this field empty to use this version or specify the location where you manually installed busybox26');
+					}
+				} else {
+					$('busyboxInfo').update('Could not find Busybox26: leave this field empty to automatically install busybox26 or specify the location where you manually installed busybox26');
+				}
+
+				$('shortcutOneType').setValue(settings.shortcutOneType);
+				$('shortcutOneLocation').setValue(settings.shortcutOneLocation);
+				$('shortcutTwoType').setValue(settings.shortcutTwoType);
+				$('shortcutTwoLocation').setValue(settings.shortcutTwoLocation);
+				$('shortcutThreeType').setValue(settings.shortcutThreeType);
+				$('shortcutThreeLocation').setValue(settings.shortcutThreeLocation);
+				$('shortcutFourType').setValue(settings.shortcutFourType);
+				$('shortcutFourLocation').setValue(settings.shortcutFourLocation);
+
+
+				Event.observe('ok', 'click', function() {
+					var mediaLocation = $('mediaLocation').value;
+					if (mediaLocation == '' || mediaLocation.substr(-1) != '/') {
+						mediaLocation += '/';
+					}
+					
+					var busyboxLocation = $('busyboxLocation').value;
+					if (busyboxLocation != '' && busyboxLocation.substr(-1 == '/')) {
+						busyboxLocation += 'busybox26';
+					}
+
+					settings.address = $('address').value;
+					settings.name = $('name').value;
+					settings.jukeboxConnector = $('jukeboxConnector').value;
+					settings.gayaHome = $('gayaHome').value;
+					settings.busyboxLocation = busyboxLocation;
+					settings.mediaLocation = mediaLocation;
+					settings.shortcutOneType = $('shortcutOneType').value;		
+					settings.shortcutOneLocation = $('shortcutOneLocation').value;		
+					settings.shortcutTwoType = $('shortcutTwoType').value;		
+					settings.shortcutTwoLocation = $('shortcutTwoLocation').value;		
+					settings.shortcutThreeType = $('shortcutThreeType').value;		
+					settings.shortcutThreeLocation = $('shortcutThreeLocation').value;		
+					settings.shortcutFourType = $('shortcutFourType').value;		
+					settings.shortcutFourLocation = $('shortcutFourLocation').value;		
+					settings.save();
+					
+					/* Close window */
+					window.close();
+				});
+			});
+			
+		
+		//-->
+		</script>
+   	</head>
+	
+    <body id='settings' class='mediatankSelected'>
+    	<ul class='header'>
+    		<li id='mediatankTab'>Mediatank</li>	
+    		<li id='shortcutsTab'>Shortcuts</li>	
+    		<li id='jukeboxTab'>Jukebox</li>	
+		</ul>
+    		
+		<div id='mediatankPanel' class='panel'>
+			<label>
+				IP address of the Mediatank:<br />
+				<i>For example 192.168.1.2</i><br />
+				<input id='address' type='text' value=''/>
+			</label>
+		
+			<div class='advanced'>
+				<label>
+					Nickname of your Mediatank:<br />
+					<input id='name' type='text' value=''/>
+				</label>
+
+				<label>
+					Location of the busybox26 binary on your Mediatank:<br />
+					<i id='busyboxInfo'></i><br />
+					<input id='busyboxLocation' type='text' value=''/>
+				</label>
+
+				<label>
+					Location of the directory which contains your media files:<br />
+					<input id='mediaLocation' type='text' value=''/>
+				</label>
+			</div>
+		</div>
+		
+		<div id='shortcutsPanel' class='panel'>
+			<div class='advanced'>
+				To configure your shortcuts, please fill in the following fields:
+				<br /><br />
+				
+				<div>
+					<select id='shortcutOneType'>
+						<option value='audio'>Audio stream</option>
+						<option value='video'>Video stream</option>
+						<option value='web'>Web page</option>
+					</select>
+
+					<input id='shortcutOneLocation' type='text' value='' />
+
+					<button id='presetOne'></button>
+				</div>
+
+				<div>
+					<select id='shortcutTwoType'>
+						<option value='audio'>Audio stream</option>
+						<option value='video'>Video stream</option>
+						<option value='web'>Web page</option>
+					</select>
+
+					<input id='shortcutTwoLocation' type='text' value='' />
+
+					<button id='presetTwo'></button>
+				</div>
+
+				<div>
+					<select id='shortcutThreeType'>
+						<option value='audio'>Audio stream</option>
+						<option value='video'>Video stream</option>
+						<option value='web'>Web page</option>
+					</select>
+
+					<input id='shortcutThreeLocation' type='text' value='' />
+
+					<button id='presetThree'></button>
+				</div>
+
+				<div>
+					<select id='shortcutFourType'>
+						<option value='audio'>Audio stream</option>
+						<option value='video'>Video stream</option>
+						<option value='web'>Web page</option>
+					</select>
+
+					<input id='shortcutFourLocation' type='text' value='' />
+
+					<button id='presetFour'></button>
+				</div>
+			</div>
+		</div>
+		
+		<div id='jukeboxPanel' class='panel'>
+			<div class='advanced'>
+				<label>
+					Enter the location of the connector for your Jukebox:<br />
+					<input id='jukeboxConnector' type='text' value=''/>
+				</label>
+
+				<label>
+					After playing a file, restart gaya on the following location:<br />
+					<input id='gayaHome' type='text' value=''/>
+				</label>
+			</div>
+		</div>
+
+		<div>
+			<button id='ok'>Save settings</button>
+		</div>
+	</body>
+</html>

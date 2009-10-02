@@ -1,0 +1,148 @@
+<html>
+	<head>
+        <title>MediatankController</title>
+
+        <script type="text/javascript" src="lib/air/AIRAliases.js"></script>
+		<script type="application/x-shockwave-flash" src="lib/update/applicationupdater_ui.swf"></script>
+		<script type="text/javascript" src="lib/prototype/prototype.js"></script>
+		<script type="text/javascript" src="settings.js"></script>
+		<script type="text/javascript">
+		<!--
+		
+			var appUpdater = new runtime.air.update.ApplicationUpdaterUI();
+			
+			appUpdater.updateURL = "http://rakaz.nl/projects/nmt/MediatankController.xml";
+			appUpdater.delay = 0.15;
+			appUpdater.isCheckForUpdateVisible = false;
+			appUpdater.isDownloadUpdateVisible = true;
+			appUpdater.isDownloadProgressVisible = true;
+			appUpdater.initialize();
+			
+			window.setTimeout(function() {
+				appUpdater.checkNow();	
+			}, 1000);
+
+			air.trace("Checking version: done!")
+
+
+RemoteController = Class.create({
+	initialize: function() {
+		this.defaults = {
+			address:				'',
+			name:					'',
+			busyboxLocation:		'',
+			jukeboxConnector:		'',
+			mediaLocation:			'/opt/sybhttpd/localhost.drives/',
+			gayaHome:				'http://localhost:8883/start.cgi',
+			
+			shortcutOneType:		'audio',
+			shortcutOneLocation:	'http://',
+			shortcutTwoType:		'audio',
+			shortcutTwoLocation:	'http://',
+			shortcutThreeType:		'audio',
+			shortcutThreeLocation:	'http://',
+			shortcutFourType:		'audio',
+			shortcutFourLocation:	'http://',
+				
+			xPos:					parseInt((air.Capabilities.screenResolutionX - 420) / 2),
+			yPos:					parseInt((air.Capabilities.screenResolutionY - 500) / 2)
+		};
+		
+		this.settings = new SettingsController(this.defaults);
+		air.trace('Loading settings: done!');
+		
+		this.openWindows = 0;
+		this.activeWindows = 0;
+		
+		for (var i = 0; i < this.settings.remotes.length; i++) {
+			new Remote(this, this.settings.remotes[i]);
+			this.openWindows++;
+			this.activeWindows++;
+		}
+	},
+	
+	add: function() {
+		var remote = new SettingsStore(this.settings);
+		
+		for (property in this.defaults) {
+			remote[property] = this.defaults[property];
+		}
+		
+		this.settings.remotes.push(remote);
+
+		new Remote(this, remote);
+		this.openWindows++;
+		this.activeWindows++;
+	},
+	
+	remove: function() {
+		if (this.activeWindows > 1) {
+			this.activeWindows--;
+			return true;
+		}
+		
+		return false;
+	},
+	
+	close: function() {
+		this.openWindows--;
+
+		air.trace('Windows left open: ' + this.openWindows);
+		
+		if (this.openWindows < 1) {
+			var exitingEvent = new air.Event(air.Event.EXITING, false, true); 
+		    air.NativeApplication.nativeApplication.dispatchEvent(exitingEvent); 
+		    if (!exitingEvent.isDefaultPrevented()) { 
+		        air.NativeApplication.nativeApplication.exit(); 
+		    } 				
+		}
+	}
+});
+
+Remote = Class.create({
+	initialize: function(controller, settings) {
+		this.controller = controller;
+		this.settings = settings;
+
+		var init = new air.NativeWindowInitOptions();
+		var bounds = new air.Rectangle(parseInt(this.settings.xPos), parseInt(this.settings.yPos), 420, 500);
+						
+		init.minimizable = false;
+		init.maximizable = false;
+		init.resizable = false;
+		init.systemChrome = 'none';
+		init.transparent = true;
+						
+		this.window = air.HTMLLoader.createRootWindow(true, init, true, bounds);
+		this.window.window.remote = this;
+		this.window.window.settings = this.settings;
+		this.window.load(new air.URLRequest(air.File.applicationDirectory.resolvePath('remote.html').url));
+
+		air.trace('Creating remote: done!');
+	},
+	
+	close: function() {
+		air.trace('Closing remote');
+		this.controller.close.bind(this.controller)();
+	},
+	
+	remove: function() {
+		if (this.controller.remove()) {
+			air.trace('Removing remote');
+			this.settings.remove();
+		}
+	}
+});
+
+
+
+new RemoteController();
+
+			air.trace('Hello!');
+
+		//-->
+		</script>
+   	</head>
+	
+    <body></body>
+</html>
