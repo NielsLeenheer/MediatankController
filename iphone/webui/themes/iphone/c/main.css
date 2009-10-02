@@ -1,0 +1,907 @@
+
+/************************************************************************************************/
+
+* {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-text-size-adjust: none;
+
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	height: 100%;
+	overflow-x: hidden;
+
+	font-family: Helvetica;
+	color: #000;
+	background: #fff;
+}
+
+
+
+
+
+
+
+/************************************************************************************************/
+
+.toolbar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+
+	box-sizing: border-box;
+    	-moz-box-sizing: border-box;
+    	-webkit-box-sizing: border-box;
+	width: 100%;
+	height: 45px;
+	padding: 10px;
+	
+    	border-bottom: 1px solid #2d3642;
+	background: url(../i/t/toolbar.png) #6d84a2 repeat-x;
+}
+
+body.offline > .toolbar {
+	background: #6d84a2 url(../i/t/offline.png) repeat-x !important;
+}
+
+/**********************************/
+
+.toolbar > h1 {
+	position: absolute;
+	left: 50%;
+
+	height: 45px;
+	width: 150px;
+	margin: 1px 0 0 -75px;
+	overflow: hidden;
+
+	font-size: 20px;
+	font-weight: bold;
+	text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: #fff;
+	opacity: 1;
+
+	-webkit-transition-property: -webkit-transform, opacity;
+	-webkit-transition-duration: 300ms;
+	-webkit-transform: translate3d(0, 0, 0);
+}
+
+body.landscape .toolbar > h1 {
+	margin-left: -125px;
+	width: 250px;
+}
+
+/**********************************/
+
+.toolbar > .button {
+	position: absolute;
+	top: 7px;
+	right: 6px;
+	z-index: 1;
+
+	width: auto;
+	height: 30px;
+	margin: 0;
+	padding: 0 3px;
+	overflow: hidden;
+
+	line-height: 30px;
+	font-family: inherit;
+	font-size: 12px;
+	font-weight: bold;
+	text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
+	text-overflow: ellipsis;
+	text-decoration: none;
+	white-space: nowrap;
+
+	color: #fff;
+	background: none;
+	border-width: 0 5px;
+	-webkit-border-image: url(../i/t/toolButton.png) 0 5 0 5;
+}
+
+body > .toolbar > #backButton {
+	display: none;
+
+	left: 6px;
+	right: auto;
+
+	max-width: 55px;
+	padding: 0;
+
+	opacity: 1;
+	border-width: 0 8px 0 14px;
+	-webkit-border-image: url(../i/t/backButton.png) 0 8 0 14;
+
+	-webkit-transition-property: -webkit-transform, opacity;
+	-webkit-transition-duration: 300ms;
+	-webkit-transform: translate3d(0, 0, 0);
+}
+
+
+
+
+
+
+
+/************************************************************************************************/
+
+body > #pages {
+	margin-top: 45px;
+	min-height: 322px; 
+}
+
+body.landscape > #pages {
+	min-height: 223px; 
+}
+
+body > #pages > * {
+	display: none;
+	overflow-x: hidden;
+
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	min-height: 322px;
+
+	background: #fff;
+
+	-webkit-transition-duration: 300ms;
+	-webkit-transition-property: -webkit-transform;
+	-webkit-transform: translateX(0%);
+}
+
+body > #pages > [selected="true"] {
+	display: block;
+}
+
+body.standalone > #pages > * {
+	position: absolute; 
+	height: 366px;
+	overflow-y: scroll;
+}
+
+body.landscape > #pages > * {
+	min-height: 223px;
+}
+
+body.standalone.landscape > #pages > * {
+	height: 255px;
+}
+
+
+
+
+
+
+
+/************************************************************************************************/
+
+body > .footer {
+	width: 100%;	
+	
+	display: block;
+	height: 49px;
+	overflow: hidden;
+
+	background: url(../i/f/bg.png) top left repeat-x;
+	text-align: center;
+
+	margin: 0;
+	padding: 0;
+	white-space: nowrap;
+	z-index: 20;
+}
+body.standalone > .footer {
+	position: absolute;
+	top: 411px;
+	left: 0;
+	right: 0;
+}
+body.standalone.landscape > .footer {
+	top: 300px;
+}
+
+.footer li {
+	display: inline-block;
+	margin: 3px 0 0 0;
+	padding: 0;
+	width: 70px;
+}
+.footer li a {
+	text-decoration: none;
+	color: #888;
+	text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
+	
+	font-weight: bold;
+	font-size: 9px;
+	
+	display: block;
+	position: relative;
+	padding: 33px 0 1px 0;
+
+	background-color: transparent !important;
+	background-image: url(../i/f/icons.png) !important;
+}	
+.footer li a.selected {
+	color: #fff;
+	background-color: rgba(255, 255, 255, 0.15) !important;
+	-webkit-border-radius: 2px;
+}
+.footer li a div {
+	position: absolute;
+	display: block;
+	float: right;
+
+	top: 0px;
+	right: 4px;
+	z-index: 1000;
+	color: #fff;
+	border-width: 0 12px;
+	-webkit-border-image: url(../i/f/status.png) 0 12 0 12;
+
+	height: 23px;
+	line-height: 19px;
+
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	font-style: normal;
+}
+.footer li a div:before {
+	margin: 0 -6px;
+	content: attr(title);
+}
+.footer li a#footerFavorite {
+	background-position: 3px 0;
+}
+.footer li a#footerFavorite.selected {
+	background-position: 3px -50px;
+}
+.footer li a#footerWatchlist {
+	background-position: -57px 0;
+}
+.footer li a#footerWatchlist.selected {
+	background-position: -57px -50px;
+}
+.footer li a#footerRemote {
+	background-position: -116px 0;
+}
+.footer li a#footerRemote.selected {
+	background-position: -116px -50px;
+}
+.footer li a#footerContents {
+	background-position: -177px 0;
+}
+.footer li a#footerContents.selected {
+	background-position: -177px -50px;
+}
+
+
+
+
+
+
+
+/************************************************************************************************/
+
+ul.list {
+	background: #fff;
+	min-height: 100%;
+}
+ul.list > li {
+	position: relative;
+	margin: 0;
+	padding: 8px 0 8px 10px;
+	border-bottom: 1px solid #E0E0E0;
+	list-style: none;
+
+	font-size: 16px;
+	font-weight: bold;
+}
+ul.list > li a {
+	display: block;
+	margin: -8px 0 -8px -10px;
+	padding: 8px 32px 8px 10px;
+	text-decoration: none;
+	color: inherit;
+	background: url(../i/l/listArrow.png) no-repeat right center;
+}
+ul.list > li a.file,
+ul.list > li a.service {
+	background-image: none;
+}
+ul.list > li a.selection {
+	background-color: #ccdded;
+	background-image: url(../i/l/listArrow.png), url(../i/l/selection.png);
+	background-repeat: no-repeat, repeat-x;
+	background-position: right center, left top;
+}
+ul.list > li a.selection.file,
+ul.list > li a.selection.service {
+	background-color: #ccdded;
+	background-image: url(../i/l/selection.png);
+	background-repeat: repeat-x;
+	background-position: left top;
+}
+ul.list > li a.focus,
+ul.list > li a[selected] {
+	color: #fff;
+	background-color: #194fdb;
+	background-image: url(../i/l/listArrowSel.png), url(../i/l/focus.png);
+	background-repeat: no-repeat, repeat-x;
+	background-position: right center, left top;
+}
+ul.list > li a.focus.file,
+ul.list > li a.focus.service,
+ul.list > li a[selected].file,
+ul.list > li a[selected].service {
+	background-image: url(../i/l/focus.png);
+	background-repeat: repeat-x;
+	background-position: left top;
+}
+ul.list > li a[selected="progress"] {
+	background-image: url(../i/l/loading.gif), url(../i/l/focus.png) !important;
+	background-repeat: no-repeat, repeat-x !important;
+	background-position: right center, left top !important;
+}
+
+/**********************************/
+
+ul.list > li.hasMark .path,
+ul.list > li.hasIcon .path,
+ul.list > li.hasMark .title,
+ul.list > li.hasIcon .title {
+	padding-left: 24px;
+	display: block;
+	text-overflow: ellipsis;
+ 	overflow: hidden;
+}
+ul.list > li.hasIcon.hasMark .path,
+ul.list > li.hasIcon.hasMark .title {
+	padding-left: 56px;
+}
+ul.list > li.hasIcon .icon {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+}
+ul.list > li.hasIcon.hasMark .icon {
+	left: 40px;
+}
+ul.list > li.hasMark .mark {
+	position: absolute;
+	display: block;
+	top: 10px;
+	left: 16px;
+	width: 12px;
+	height: 12px;
+	
+	background: transparent url(../i/l/new.png) top left no-repeat;
+}
+ul.list > li.hasMark.marked .mark {
+	background: none;
+}
+
+/**********************************/
+
+ul.list > li a .path {
+	font-size: 12px;
+	color: #aaa;
+}
+ul.list > li a[selected] .path,
+ul.list > li a.focus .path {
+	color: #fff !important;
+}
+
+/**********************************/
+
+ul.list > li a .title.alternate {
+	color: #888;
+	font-style: italic;
+	font-weight: normal;
+}
+ul.list > li a[selected] .title.alternate,
+ul.list > li a.focus .title.alternate {
+	color: #fff !important;
+}
+
+/**********************************/
+
+ul.list > li.buttons {
+	overflow: hidden;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+ul.list > li.buttons a {
+	display: inline-block;
+	width: 120px;
+	height: 32px;
+	line-height: 32px;
+	
+	padding: 0;
+	margin: 10px 6px 14px;
+	
+	background: #fff;
+	border-width: 0 9px 0 9px;
+	-webkit-border-image: url(../i/l/button.png) 0 9 0 9;
+	
+	text-align: center;
+	font-size: 14px;
+	color: #566994;
+	
+	white-space: nowrap;
+}
+ul.list > li.buttons a.focus {
+	-webkit-border-image: url(../i/l/button-focus.png) 0 9 0 9;
+	color: #fff;
+}
+ul.list > li.buttons a:active,
+ul.list > li.buttons a[selected],
+ul.list > li.buttons a[selected="progress"] {
+	background: none !important;
+}
+ul.list > li.buttons.disabled a,
+body.offline ul.list > li.buttons a {
+	opacity: 0.5;
+}
+ul.list > li.buttons.disabled a.focus,
+body.offline ul.list > li.buttons a.focus {
+	-webkit-border-image: url(../i/l/button.png) 0 9 0 9;
+	color: #566994 !important;
+}
+
+/**********************************/
+
+ul.list > li.buttons div {
+	text-align: center;
+	padding: 20px 30px;
+
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 140%;
+	color: #666;
+}
+
+
+
+
+
+
+
+/************************************************************************************************/
+
+body > #pages > #remote {
+	position: relative;
+	top: -45px;
+	margin: 0 0 -45px 0;
+	overflow: hidden;
+	z-index: 10;
+	background: #000;
+}    
+body.standalone > #pages > #remote {
+	height: 412px;
+}
+body.standalone.landscape > #pages > #remote {
+	height: 300px;
+}
+
+/**********************************/
+
+#remote .toolbar {
+	z-index: 11 !important;
+	background: #222 url(../i/c/toolbar.png) repeat-x;
+	opacity: 0.85;
+}
+body.offline #remote > .toolbar {
+	background: #222 url(../i/c/offline.png) repeat-x !important;
+}
+#remote > .toolbar .button {
+	-webkit-border-image: url(../i/c/button.png) 0 5 0 5;
+}
+
+/**********************************/
+
+#remote #playback {
+	display: block;
+	height: 42px;
+	overflow: hidden;
+
+
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	z-index: 12 !important;
+
+	margin: 0;
+	padding: 20px 0 0;
+	
+	background: #202020 url(../i/c/bg-large.png) top left repeat-x;
+	text-align: center;
+	-webkit-box-shadow: none;
+	opacity: 0.95;
+}
+body.landscape #remote #playback {
+	height: 37px !important;
+	min-height: 37px !important;
+	padding: 12px 0 0;
+	background: #202020 url(../i/c/bg.png) top left repeat-x;
+}
+#remote #playback li {
+	list-style-type: none;
+	display: inline;
+	margin: 0 4px;
+	padding: 0;
+	background: none;
+	width: auto;
+	border: none;
+}
+body.landscape #remote #playback li {
+	margin: 0 18px;
+}
+#remote #playback li a {
+	display: inline;
+	margin: 0;
+	padding: 12px 14px 10px;
+}
+
+/**********************************/
+
+#remote .contents {
+	background: #555;	
+	border: none;
+	margin: 0;
+	padding: 0;
+	z-index:1;
+	overflow: hidden;
+} 
+body.standalone #remote .contents {
+	height: 412px;
+	overflow-y: scroll;
+}
+body.standalone.landscape #remote .contents {
+	height: 300px;
+}
+
+/**********************************/
+
+#remote #buttons {
+	padding: 63px 0 77px 34px;
+	background: #333;
+	-webkit-box-shadow: 0 0 20px #333;
+	overflow: hidden;
+}
+body.landscape #remote #buttons {
+	padding-left: 48px;
+}
+
+/**********************************/
+
+#remote #buttons .group {
+	display: inline;
+	min-width: 100px;
+} 
+#remote #buttons .group.large {
+	max-width: 264px;
+	float: left;
+	display: inline-block;
+	margin: 12px 0;
+}
+body.landscape #remote #buttons .group.large {
+	margin: 0;
+}
+
+/**********************************/
+
+#remote #buttons a {
+	display: block;
+	float: left;
+	
+	border-width: 0 6px 0 6px;
+	-webkit-border-image: url(../i/c/button-light.png) 0 6 0 6;
+
+	width: 42px;
+	height: 36px;
+	
+	margin: 0 12px 12px 0;
+	
+	font-weight: bold;
+	color: #fff;
+	text-align: center;
+	line-height: 40px;
+	text-decoration: none;
+} 
+#remote #buttons .group.large a {
+	width: 64px;
+}
+#remote #buttons a.blue {
+	-webkit-border-image: url(../i/c/button-blue.png) 0 6 0 6;
+} 
+#remote #buttons a.red {
+	-webkit-border-image: url(../i/c/button-red.png) 0 6 0 6;
+} 
+#remote #buttons a.green {
+	-webkit-border-image: url(../i/c/button-green.png) 0 6 0 6;
+} 
+#remote #buttons a.yellow {
+	-webkit-border-image: url(../i/c/button-yellow.png) 0 6 0 6;
+} 
+#remote #buttons a.dark {
+	-webkit-border-image: url(../i/c/button-dark.png) 0 6 0 6;
+} 
+#remote #buttons a.focus {
+	-webkit-border-image: url(../i/c/focus-light.png) 0 6 0 6;
+}
+#remote #buttons a.focus.blue {
+	-webkit-border-image: url(../i/c/focus-blue.png) 0 6 0 6;
+} 
+#remote #buttons a.focus.red {
+	-webkit-border-image: url(../i/c/focus-red.png) 0 6 0 6;
+} 
+#remote #buttons a.focus.green {
+	-webkit-border-image: url(../i/c/focus-green.png) 0 6 0 6;
+} 
+#remote #buttons a.focus.yellow {
+	-webkit-border-image: url(../i/c/focus-yellow.png) 0 6 0 6;
+} 
+#remote #buttons a.focus.dark {
+	-webkit-border-image: url(../i/c/focus-dark.png) 0 6 0 6;
+} 
+#remote #buttons a em {
+	font-style: normal;
+	width: 40px;
+	line-height: 26px;
+	height: 36px;
+	display: inline-block;
+	margin: -2px 0 0;
+	background-image: url(../i/c/icons.png);
+	background-position: top left;
+	background-repeat: no-repeat;	
+}
+#remote #buttons a.focus em {
+	opacity: 0.5;
+}
+
+
+
+
+
+
+
+/************************************************************************************************/
+
+.balloon {
+	position: absolute;
+	float: left;
+	
+	display: block !important;
+	z-index: 1000 !important;
+	background: transparent !important;
+	width: auto !important;
+	height: auto !important;
+	min-height: 0 !important;
+	overflow: visible !important;
+}
+.balloon div {
+	position: relative;
+	text-align: center;
+	margin: 0 auto;
+	width: 36px;
+	height: 12px;
+	
+	background: url(../i/b/tip.png) top left;
+}
+.balloon div:last-child {
+	top: -1px;
+	height: 16px;
+	background-position: bottom left;
+}
+
+.balloon.down div:first-child {
+	display: none;
+}
+.balloon.up div:last-child {
+	display: none;
+}
+
+.balloon ul {
+	border-width: 0 7px;
+	-webkit-border-image: url(../i/b/bg.png) 0 7 0 7;
+	-webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+	-webkit-border-radius: 9px;
+	color: #fff;
+
+	padding: 1px 0;
+	margin: 0;
+	font-weight: bold;
+	font-size: 14px;
+	height: 37px;
+	white-space: nowrap;
+}
+.balloon li {
+	display: inline-block;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	
+	border-right: 1px solid rgba(0, 0, 0, 0.2);
+	border-left: 1px solid rgba(255, 255, 255, 0.2);
+
+	line-height: 37px;
+}
+.balloon li:first-child {
+	border-left: none;
+}
+.balloon li:last-child {
+	border-right: none;
+}
+.balloon li a {
+	text-decoration: none;
+	color: #fff;
+	text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
+	
+	display: block;
+	padding: 0 12px;
+}
+.balloon li:first-child a {
+	margin-left: -6px;
+	-webkit-border-top-left-radius: 8px;
+	-webkit-border-bottom-left-radius: 8px;
+}
+.balloon li:last-child a {
+	margin-right: -6px;
+	-webkit-border-top-right-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;
+}
+.balloon li a.focus {
+	border-color: transparent;
+	background: url(../i/b/selected.png) top left repeat-x;
+}
+
+
+
+
+
+
+
+/************************************************************************************************/
+
+div.logo {
+	width: 100%;
+	text-align: center;
+	margin: 40px 0;
+}
+
+
+
+}
+
+
+
+
+
+
+
+/************************************************************************************************/
+
+.loading {
+	width: 320px;
+	height: 60px;
+	margin: 150px auto 60px;
+	background: url(../i/a/loader.gif) center center no-repeat;
+}
+body.landscape .loading {
+	width: 320px;
+	height: 60px;
+	margin: 75px auto 60px;
+	background: url(../i/a/loader.gif) center center no-repeat;
+}
+
+
+
+
+
+
+
+/************************************************************************************************/
+
+#loading .logo {
+	margin-bottom: 0;
+}
+#loading a.aboutButton {
+	display: inline-block;
+	width: 120px;
+	height: 32px;
+	line-height: 32px;
+	
+	padding: 0;
+	margin: 20px 6px 14px;
+	
+	background: #fff;
+	border-width: 0 9px 0 9px;
+	-webkit-border-image: url(../i/l/button.png) 0 9 0 9;
+	
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	color: #566994;
+}
+#loading .loading {
+	width: 320px;
+	height: 60px;
+	margin: 0 auto 60px;
+	background: url(../i/a/loader.gif) center center no-repeat;
+}
+
+
+
+
+
+
+
+/************************************************************************************************/
+
+#about p {
+	margin: 0px 46px 20px;
+	font-size: 12px;
+}
+#about .container {
+	position: relative;
+	width: 320px;
+	height: 150px;
+	-webkit-perspective: 600;
+
+	margin: 0 auto 40px;
+}
+#about .card {
+	position: absolute;
+	top: 40px;
+	left: 45px;
+
+	width: 230px;
+	height: 124px;
+
+	-webkit-transform-style: preserve-3d;
+	-webkit-transition-property: -webkit-transform;
+	-webkit-transition-duration: 1s;
+}
+#about .card.flipped {
+	-webkit-transform: rotateY(180deg);
+}
+#about .face {
+	position: absolute;
+	width: 230px;
+	height: 124px;
+
+	-webkit-backface-visibility: hidden;
+}
+#about .back {
+	-webkit-transform: rotateY(180deg);
+}
+
+
+
+
+
+
+
+/************************************************************************************************/
+
+#preloader {
+    display: none;
+    background-image: url(../i/l/loading.gif), url(../i/l/focus.png),
+        url(../i/l/listArrowSel.png);
+}
+
