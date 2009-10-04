@@ -324,11 +324,7 @@ MediatankController = Class.create({
 		// locally without affecting the settingsStore
 		settings.extendObject(this.options);
 		
-		
-		
 		this.usingBusybox = null;
-		
-//		this.shares = [ {}, {}, {}, {}, {} ];
 		this.shares = [];
 		
 		this.telnet = new TelnetController(this.options.address, {
