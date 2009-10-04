@@ -387,6 +387,8 @@
 						if (e.charCode == 13 || (e.charCode >= 32 && e.charCode <= 126)) {
 							air.trace(e.charCode);
 					
+							e.stopPropagation();
+							e.preventDefault();
 							mediatank.sendKeyCode(e.charCode);
 						}
 					}
@@ -399,19 +401,29 @@
 							case 9:
 							case 27:
 							case 127:
+								e.stopPropagation();
+								e.preventDefault();
 								mediatank.sendKeyCode(e.keyCode);
 								break;
 
 							case 37:
+								e.stopPropagation();
+								e.preventDefault();
 								mediatank.sendKeyCode(170);
 								break;
 							case 38:
+								e.stopPropagation();
+								e.preventDefault();
 								mediatank.sendKeyCode(168);
 								break;
 							case 39:
+								e.stopPropagation();
+								e.preventDefault();
 								mediatank.sendKeyCode(171);
 								break;
 							case 40:
+								e.stopPropagation();
+								e.preventDefault();
 								mediatank.sendKeyCode(169);
 								break;
 						}
