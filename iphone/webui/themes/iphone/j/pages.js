@@ -473,7 +473,7 @@ Favorites.prototype = {
 			if (this.data[i].type == 'dir' || this.data[i].type == 'root') {
 				link.href = '#' + this.data[i].id;
 			} else {
-				link.href = '../../index.php?action=play&' + this.data[i].type + '=' + encodeURI(this.data[i].path);
+				link.href = '../../index.php?action=play&' + this.data[i].type + '=' + encodeURIComponent(this.data[i].path);
 			}
 				
 			if (this.data[i].icon != '') {
@@ -847,7 +847,7 @@ WatchFolder.prototype = {
 		
 		// Notify NMT of removal...
 		var req = new XMLHttpRequest();
-		req.open("GET", "../../index.php?action=watchfolder&file=" + encodeURI(item.path) + "&command=unmark", true);
+		req.open("GET", "../../index.php?action=watchfolder&file=" + encodeURIComponent(item.path) + "&command=unmark", true);
 		req.send(null);
 	},
 	
@@ -865,7 +865,7 @@ WatchFolder.prototype = {
 		
 		// Notify NMT of removal...
 		var req = new XMLHttpRequest();
-		req.open("GET", "../../index.php?action=watchfolder&file=" + encodeURI(item.path) + "&command=mark", true);
+		req.open("GET", "../../index.php?action=watchfolder&file=" + encodeURIComponent(item.path) + "&command=mark", true);
 		req.send(null);
 	},
 	
@@ -923,7 +923,7 @@ WatchFolder.prototype = {
 				}
 			}.bind(this);
 	 
-			req.open("GET", "../../index.php?action=watchfolder&directory=" + encodeURI(this.folder) + (clear ? '&reset=true' : ''), true);
+			req.open("GET", "../../index.php?action=watchfolder&directory=" + encodeURIComponent(this.folder) + (clear ? '&reset=true' : ''), true);
 			req.send(null);
 		}
 	},
@@ -1046,7 +1046,7 @@ WatchFolder.prototype = {
 			var link = document.createElement("a");
 			link.className = this.data[i].type;
 			link.title = this.data[i].name;
-			link.href = '../../index.php?action=play&' + this.data[i].type + '=' + encodeURI(this.data[i].path);
+			link.href = '../../index.php?action=play&' + this.data[i].type + '=' + encodeURIComponent(this.data[i].path);
 			link.addEventListener('click', this.onClick.bindAsEventListener(this, this.data[i]));
 			link.addEventListener('gesturehold', this.onGestureHold.bindAsEventListener(this, this.data[i]));
 
