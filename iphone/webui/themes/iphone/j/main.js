@@ -3,15 +3,9 @@ addEventListener("load", function() {
 	application = new MediatankController(!! navigator.standalone);
 	
 	addEventListener("resume", function() {
-		if (application.ping && application) {
-			application.ping.ping();
+		if (application.connection && application) {
+			application.connection.resume();
 		}
-		
-		window.setTimeout(function() {
-			if (application.ping && application) {
-				application.ping.ping();
-			}
-		}, 4000);
 	});
 });
 
@@ -287,7 +281,7 @@ MediatankController.prototype = {
 								}.bind(this),
 			});
 			
-			this.ping = new Ping(this);
+			this.connection = new Connection(this);
 		}.bind(this), 1500);
 	},
 

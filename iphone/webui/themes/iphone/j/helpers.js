@@ -16,13 +16,37 @@
 	
 	
 	
-Ping = Class.create();
-Ping.prototype = {
+Connection = Class.create();
+Connection.prototype = {
 	initialize: function(application) {
-		this.application = application
-		this.interval = window.setInterval(this.ping.bind(this), 30 * 1000);
+		this.application = application;
+		
+		document.body.addEventListener("online", this.online.bind(this));
+		document.body.addEventListener("offline", this.offline.bind(this));
+
+		if (navigator.onLine) {
+			this.interval = window.setInterval(this.ping.bind(this), 30 * 1000);
+		}
 	},
 	
+	online: function() {
+		this.interval = window.setInterval(this.ping.bind(this), 30 * 1000);
+		this.ping();
+	},
+	
+	offline: function() {
+		window.clearInterval(this.interval);
+		this.application.offline = true;
+	},
+	
+	resume: function() {
+		if (navigator.onLine) {
+			this.ping();
+		} else {
+			window.setTimeout(this.ping.bind(this), 4000);
+		}
+	},
+
 	ping: function() {
 		var req = new XMLHttpRequest();
 
