@@ -1111,7 +1111,7 @@ Remote.prototype = {
 		this.application = application;
 		this.element = $(element);
 		
-		new EnhancedClickHandler('keyboard');
+		new EnhancedClickHandler('keyboard', { hold: true, className: 'focus' });
 		this.keyboard = new Keyboard('keyboard', function(keycode) {
 			var req = new XMLHttpRequest();
 			req.open("GET", "../../index.php?action=sendCommand&command=custom&key=" + keycode, true);

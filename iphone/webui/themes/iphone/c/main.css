@@ -107,6 +107,9 @@ body.landscape .toolbar > h1 {
 	border-width: 0 5px;
 	-webkit-border-image: url(../i/t/toolButton.png) 0 5 0 5;
 }
+.toolbar > .button.focus {
+	-webkit-border-image: url(../i/t/button-focus.png) 0 5 0 5;
+}
 
 body > .toolbar > #backButton {
 	display: none;
@@ -124,6 +127,9 @@ body > .toolbar > #backButton {
 	-webkit-transition-property: -webkit-transform, opacity;
 	-webkit-transition-duration: 300ms;
 	-webkit-transform: translate3d(0, 0, 0);
+}
+body > .toolbar > #backButton.focus {
+	-webkit-border-image: url(../i/t/back-focus.png) 0 8 0 14;
 }
 
 
@@ -508,6 +514,9 @@ body.offline #remote > .toolbar {
 }
 #remote > .toolbar .button {
 	-webkit-border-image: url(../i/c/button.png) 0 5 0 5;
+}
+#remote > .toolbar .button.enabled {
+	-webkit-border-image: url(../i/c/button-focus.png) 0 5 0 5;
 }
 
 /**********************************/

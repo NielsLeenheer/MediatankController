@@ -210,7 +210,7 @@ Keyboard.prototype = {
 	
 	onFocus: function(event) {
 		this.field.style.left = '-2000px';
-		Element.removeClassName(this.parent, 'enabled');
+		Element.addClassName(this.parent, 'enabled');
 
 		window.setTimeout(function() {
 			this.field.select();
@@ -221,7 +221,7 @@ Keyboard.prototype = {
 		this.field.style.left = 0;
 		this.field.value = ' ';
 		
-		Element.addClassName(this.parent, 'enabled');
+		Element.removeClassName(this.parent, 'enabled');
 	}
 };
 		
