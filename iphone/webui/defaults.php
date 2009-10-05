@@ -1,4 +1,4 @@
 <?php
 
-	$version = 0.991;
+	$version = 1.0;
 	$debug = true;
