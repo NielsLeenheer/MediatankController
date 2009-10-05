@@ -413,7 +413,7 @@ MediatankController = Class.create({
 	
 	busyboxInstalled: function(callback) {
 		if (this.usingBusybox == null) {
-			this.telnet.sendCommand("cd /tmp ;[ -f /tmp/busybox26 ] || wget http://rakaz.nl/projects/nmt/busybox26", function(){
+			this.telnet.sendCommand("cd /tmp ;[ -f /tmp/busybox26 ] || wget http://mediatankcontroller.com/repository/air/busybox/busybox26", function(){
 				this.telnet.sendCommand("chmod a+x /tmp/busybox26");
 				this.usingBusybox = '/tmp/busybox26';
 				debug.log('Installed busybox26 on your NMT...');
