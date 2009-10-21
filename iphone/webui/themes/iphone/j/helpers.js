@@ -16,6 +16,49 @@
 	
 	
 	
+Effect = {};
+Effect.Fade = function(element) {
+	var element = $(element);
+	element.addEventListener('webkitTransitionEnd', end);
+	element.style.webkitTransitionProperty = 'opacity';
+	element.style.webkitTransitionDuration = '300ms';
+	window.setTimeout(start, 0);
+	
+	function start() {
+		element.style.opacity = 0;	
+	}
+	
+	function end() {
+		element.removeEventListener('webkitTransitionEnd', end);
+		element.style.webkitTransitionProperty = '';
+		element.style.webkitTransitionDuration = '';
+		element.style.display = 'none';
+		element.style.opacity = 1;
+	}
+};
+
+Effect.Appear = function(element) {
+	var element = $(element);
+	element.style.opacity = 0;
+	element.style.display = '';
+	element.addEventListener('webkitTransitionEnd', end);
+	element.style.webkitTransitionProperty = 'opacity';
+	element.style.webkitTransitionDuration = '300ms';
+	window.setTimeout(start, 0);
+	
+	function start() {
+		element.style.opacity = 1;	
+	}
+	
+	function end() {
+		element.removeEventListener('webkitTransitionEnd', end);
+		element.style.webkitTransitionProperty = '';
+		element.style.webkitTransitionDuration = '';
+	}
+};
+	
+	
+	
 Connection = Class.create();
 Connection.prototype = {
 	initialize: function(application) {
