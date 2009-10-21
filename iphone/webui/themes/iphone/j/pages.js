@@ -175,11 +175,17 @@ Favorites.prototype = {
 	initialize: function(application, element) {
 		this.application = application;
 		this.element = $(element);
+
+		/* Defaults */
 		this.history = [];
 		this.data = [];
-
 		this.loading = { id: null };
 
+		/* Page events */
+		document.addEventListener('onBeforePageChange', this.onBeforePageChange.bindAsEventListener(this));
+		document.addEventListener('onAfterPageChange', this.onAfterPageChange.bindAsEventListener(this));
+
+		/* Load data */
 		this.application.storage.read('favorites', this.load.bind(this), this.update.bind(this));
 	},
 
@@ -320,34 +326,36 @@ Favorites.prototype = {
 		}
 	},
 	
-	onPageChanged: function(id) {
-		if (this.loading.id) {
-			if (this.loading.id != id) {
-				this.loading.callback();
-			}
-
-			this.loading = { id: null };
-		}
-
-		if (id == 'favorites' || id == 'services' || id.substr(0, 5) == 'upnp_' || id.substr(0, 10) == 'connector_' || id.substr(0, 11) == 'filesystem_') {
-			for (i = this.history.length - 1; i >= 0; i--) {
-				if (this.history[i] == id) {
-					this.history.splice(i);
+	onBeforePageChange: function(e) {
+	},
+	
+	onAfterPageChange: function(e) {
+		if (this.application.manager.current == 'favorites') {
+			if (this.loading.id) {
+				if (this.loading.id != e.to) {
+					this.loading.callback();
 				}
-			}
-				
-			this.history.push(id);
-			
-			if (this.history[0] != 'favorites') {
-				this.history.unshift('favorites');
+
+				this.loading = { id: null };
 			}
 
-			this.application.storage.write('favoritesHistory', this.history);
+			if (e.to == 'favorites' || e.to == 'services' || e.to.substr(0, 5) == 'upnp_' || e.to.substr(0, 10) == 'connector_' || e.to.substr(0, 11) == 'filesystem_') {
+				for (i = this.history.length - 1; i >= 0; i--) {
+					if (this.history[i] == e.to) {
+						this.history.splice(i);
+					}
+				}
+				
+				this.history.push(e.to);
+			
+				if (this.history[0] != 'favorites') {
+					this.history.unshift('favorites');
+				}
+
+				this.application.storage.write('favoritesHistory', this.history);
+			}
 		}
 	},
-
-
-
 
 	load: function(data) {
 		this.data = data;

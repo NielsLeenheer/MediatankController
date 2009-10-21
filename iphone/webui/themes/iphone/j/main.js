@@ -91,8 +91,6 @@ MediatankController.prototype = {
 								}
 					
 								if (this.manager.current == 'favorites') {
-									this.favorites.onPageChanged(id);
-									
 									if (id == 'favorites') {
 										this.refresh.hide();	
 									} else {

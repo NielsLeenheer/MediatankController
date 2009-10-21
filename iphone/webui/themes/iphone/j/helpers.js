@@ -187,10 +187,22 @@ IUILoader.prototype = {
 	},
 	
 	onPrepare: function(id) {
+		var event = document.createEvent("Events"); 
+		event.initEvent("onBeforePageChange", true, true); 
+		event.from = this.current;
+		event.to = id;
+		document.dispatchEvent(event); 
+
 		this.options.onPrepare(id);
 	},
 
 	onChange: function(id) {
+		var event = document.createEvent("Events"); 
+		event.initEvent("onAfterPageChange", true, true); 
+		event.from = this.current;
+		event.to = id;
+		document.dispatchEvent(event); 
+
 		this.current = id;
 		this.options.onChange(id);
 	},
