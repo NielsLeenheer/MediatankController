@@ -99,7 +99,7 @@ Storage.prototype = {
 			transaction.executeSql("SELECT data FROM storage WHERE key=?;", [ key ], function(transaction, results) {
 				if (results.rows.length) {
 					var row = results.rows.item(0);
-					success(JSON.parse(row['data']));
+					success(row['data'].evalJSON());
 				} else {
 					fallback();
 				}
@@ -112,7 +112,7 @@ Storage.prototype = {
 			return;
 		}
 			
-		var json = JSON.stringify(data);
+		var json = Object.toJSON(data);
 			
 		this.database.transaction(function (transaction) {
 			transaction.executeSql("INSERT OR REPLACE INTO storage (key, data) VALUES (?, ?);", [ key, json ]); 

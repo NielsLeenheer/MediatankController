@@ -194,7 +194,7 @@ MediatankController.prototype = {
 		req.onreadystatechange = function() {
 			if (req.readyState == 4) {
 				this.offline = false;
-				var current = JSON.parse(req.responseText);
+				var current = req.responseText.evalJSON();
 				this.storage.read('version', 
 					function(previous) {
 						this.compareVersion(current, previous)

@@ -571,7 +571,7 @@ Page.prototype = {
 		req.onreadystatechange = function() {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
-					var data = JSON.parse(req.responseText);
+					var data = req.responseText.evalJSON();
 					this.parent.application.storage.write(id, data);
 	
 					if (success) {
@@ -924,7 +924,7 @@ WatchFolder.prototype = {
 			
 			req.onreadystatechange = function() {
 				if (req.readyState == 4) {
-					var data = JSON.parse(req.responseText);
+					var data = req.responseText.evalJSON();
 					
 					this.data = data;
 					this.save();
