@@ -31,6 +31,10 @@ window.iui =
 {
 	/* Begin custom hooks needed for MediatankController */
 	updatePage: function(to, from) {
+		if (pagePrepareCallback) {
+			pagePrepareCallback(to.id);	
+		}
+
 		from.removeAttribute("selected");
 		currentPage = to;
 		updatePage(to, from);
@@ -46,7 +50,7 @@ window.iui =
 		if (!page.id)
 			page.id = "__" + (++newPageCount) + "__";
 
-		location.hash = currentHash = hashPrefix + page.id;
+		currentHash = hashPrefix + page.id;
 		pageHistory.push(page.id);
 	},
 
@@ -88,11 +92,23 @@ window.iui =
 				var fromPage = currentPage;
 				currentPage = page;
 
+				if (pagePrepareCallback) {
+					pagePrepareCallback(page.id);	
+				}
+
 				if (fromPage)
 					setTimeout(slidePages, 0, fromPage, page, backwards);
 				else
 					updatePage(page, fromPage);
 			}
+		}
+	},
+
+	showPrevious: function() 
+	{
+		if (pageHistory.length > 1) {
+			var pageId = pageHistory[pageHistory.length - 2];
+			iui.showPageById(pageId);
 		}
 	},
 
@@ -250,7 +266,7 @@ addEventListener("click", function(event)
 			setTimeout(unselect, 500);
 		}
 		else if (link == $("backButton"))
-			history.back();
+			iui.showPrevious();
 		else if (link.getAttribute("type") == "submit")
 			submitForm(findParent(link, "form"));
 		else if (link.getAttribute("type") == "cancel")
@@ -331,12 +347,6 @@ function checkOrientAndLocation()
 		  setOrientation(orient);
 	  }
 	}
-
-	if (location.hash != currentHash)
-	{
-		var pageId = location.hash.substr(hashPrefix.length);
-		iui.showPageById(pageId);
-	}
 }
 
 function setOrientation(orient)
@@ -382,8 +392,7 @@ function updatePage(page, fromPage)
 	if (!page.id)
 		page.id = "__" + (++newPageCount) + "__";
 
-
-	location.hash = currentHash = hashPrefix + page.id;
+	currentHash = hashPrefix + page.id;
 	pageHistory.push(page.id);
 	
 	if (pageChangeCallback) {
@@ -411,16 +420,14 @@ function updatePage(page, fromPage)
 	}	 
 }
 
+
+
 function slidePages(fromPage, toPage, backwards)
 {		 
 	var axis = (backwards ? fromPage : toPage).getAttribute("axis");
 
 	clearInterval(checkTimer);
 	
-	if (pagePrepareCallback) {
-		pagePrepareCallback(toPage.id);	
-	}
-
 	if (canDoSlideAnim() && axis != 'y')
 	{
 	  slideToolbar(toPage, backwards);
