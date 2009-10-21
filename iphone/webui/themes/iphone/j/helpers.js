@@ -165,6 +165,10 @@ IUILoader.prototype = {
 	
 	gotoWithoutAnimation: function (id) {
 		iui.updatePage($(id), iui.getCurrentPage());
+	},
+	
+	updateTitle: function() {
+		iui.updateTitle();
 	}
 };
 
