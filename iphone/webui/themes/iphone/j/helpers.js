@@ -181,11 +181,16 @@ EnhancedClickHandler.prototype = {
 		this.moveBack = options ? false || options.moveBack : false;
 	
 		this.target = null;
+		this.radius = 100;
 	
 		if (window.Touch) {
 			this.element.addEventListener('touchstart', this, false);
 			this.element.addEventListener('click', this, true);
 		}
+	},
+
+	inRadius: function(x, y) {
+		return (x > this.left && x < this.right && y > this.top && y < this.bottom);
 	},
 
 	handleEvent: function(e) {
@@ -234,20 +239,22 @@ EnhancedClickHandler.prototype = {
 			event.custom = true;
 			this.target.dispatchEvent(event);
 		} else {
-			var top = 0, left = 0;
+			this.top = 0;
+			this.left = 0;
+			
 			var element = this.target;
 			while (element.offsetParent) {
-				top += element.offsetTop;
-				left += element.offsetLeft;
+				this.top += element.offsetTop;
+				this.left += element.offsetLeft;
 				element = element.offsetParent;
 			}
 			
-			this.area = {
-				'top':		top,
-				'bottom':	top + this.target.offsetHeight,
-				'left':		left,
-				'right':	left + this.target.offsetWidth
-			};
+			this.x = parseInt(this.left + (this.target.offsetWidth / 2), 10);
+			this.y = parseInt(this.top + (this.target.offsetHeight / 2), 10);
+			this.bottom = this.top + this.target.offsetHeight + this.radius;
+			this.right = this.left + this.target.offsetWidth + this.radius;
+			this.left = this.left - this.radius;
+			this.top = this.top - this.radius;
 			
 			if (this.className) {
 				Element.addClassName(this.target, this.className);	
@@ -258,9 +265,9 @@ EnhancedClickHandler.prototype = {
 				this.feedback.src = 'i/g/highlight.png';
 				this.feedback.style.position = 'absolute';
 				this.feedback.style.display = 'block';
-				this.feedback.style.zIndex = 11;
-				this.feedback.style.top = Math.round(this.area.top + (this.target.offsetHeight / 2) - 37) + 'px';
-				this.feedback.style.left = Math.round(this.area.left + (this.target.offsetWidth / 2) - 37) + 'px';
+				this.feedback.style.zIndex = 1000;
+				this.feedback.style.top = Math.round(this.y - 37) + 'px';
+				this.feedback.style.left = Math.round(this.x - 37) + 'px';
 				this.feedback.style.width = '74px';
 				this.feedback.style.height = '74px';
 				this.feedback.style.minHeight = '74px';
@@ -281,8 +288,7 @@ EnhancedClickHandler.prototype = {
 		e.stopPropagation();
 		
 		if (this.moveBack) {
-			if (e.targetTouches[0].clientX < this.area.left || e.targetTouches[0].clientX > this.area.right ||
-				e.targetTouches[0].clientY < this.area.top || e.targetTouches[0].clientY > this.area.bottom) 
+			if (!this.inRadius(e.targetTouches[0].clientX, e.targetTouches[0].clientY))
 			{	
 				this.moved = true;
 				
