@@ -1,15 +1,3 @@
-/* Start the application */
-addEventListener("load", function() {
-	application = new MediatankController(!! navigator.standalone);
-	
-	addEventListener("resume", function() {
-		if (application.connection && application) {
-			application.connection.resume();
-		}
-	});
-});
-
-
 
 MediatankController = Class.create();
 MediatankController.prototype = {
