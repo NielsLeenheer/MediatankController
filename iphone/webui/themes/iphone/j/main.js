@@ -174,8 +174,7 @@ MediatankController.prototype = {
 			}
 		}.bind(this));
 
-		new EnhancedClickHandler('refresh', { hold: true, className: 'focus' });
-		new EnhancedClickHandler('backButton', { className: 'focus' });
+		new EnhancedClickHandler('backButton', { className: 'focus', moveBack: true, prevent: true });
 		new EnhancedClickHandler('footer', { turbo: true });
 		if (this.standalone) {
 			new EnhancedClickHandler('pageTitle', { turbo: true });

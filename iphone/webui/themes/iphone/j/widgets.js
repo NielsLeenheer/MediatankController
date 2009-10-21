@@ -136,10 +136,15 @@ Refresh = Class.create();
 Refresh.prototype = {
 	initialize: function(application, element, options) {
 		this.application = application;
-		this.options = options;
+		this.options = Object.extend({
+			visible: 	true,
+			onOption: 	null,
+			onClick:	null
+		}, options);
 		this.element = $(element);
 		
-		this.visible = true;
+		this.visible = this.options.visible;
+		this.update();
 		
 		this.element.style.webkitTransitionProperty = 'opacity';
 		this.element.style.webkitTransitionDuration = '200ms';
@@ -148,6 +153,8 @@ Refresh.prototype = {
 		
 		document.addEventListener('offline', this.update.bindAsEventListener(this));
 		document.addEventListener('online', this.update.bindAsEventListener(this));
+
+		new EnhancedClickHandler(this.element, { hold: true, className: 'focus', moveBack: true, prevent: true });
 	},
 	
 	hide: function() {
@@ -160,10 +167,17 @@ Refresh.prototype = {
 		this.update();
 	},
 	
+	remove: function() {
+		this.element.removeEventListener('webkitTransitionEnd', this.remove.bind(this));
+		this.element.style.display = 'hidden';
+	},
+
 	update: function() {
 		if (this.visible && !this.application.offline) {
+			this.element.style.display = 'inline';
 			this.element.style.opacity = 1;
 		} else {
+			this.element.addEventListener('webkitTransitionEnd', this.remove.bind(this));
 			this.element.style.opacity = 0;
 		}
 	},
