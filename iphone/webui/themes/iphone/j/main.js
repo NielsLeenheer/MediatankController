@@ -83,7 +83,7 @@ MediatankController.prototype = {
 
 		
 		/* Initialize connection to IUI */
-		this.loader 		= new IUILoader({
+		this.loader 		= new IUILoader(this.manager, {
 			onChange:		function(id) {
 								if (this.manager.current == 'contents') {
 									this.contents.onPageChanged(id);

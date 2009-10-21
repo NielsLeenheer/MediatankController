@@ -134,7 +134,8 @@ Storage.prototype = {
 
 IUILoader = Class.create();
 IUILoader.prototype = {
-	initialize: function(options) {
+	initialize: function(application, options) {
+		this.application = application;
 		this.options = options;
 		this.current = null;
 		
