@@ -65,6 +65,34 @@ window.iui =
 	onPagePrepare: function(callback) {
 		pagePrepareCallback = callback;
 	},
+	
+	updateTitle: function() {
+		
+		if (pageHistory.length) {
+			pageId = pageHistory[pageHistory.length - 1];
+			var page = $(pageId);
+			if (page)
+			{
+				var pageTitle = $("pageTitle");
+				if (page.title) {
+					pageTitle.innerHTML = page.title;
+				}
+	
+				var backButton = $("backButton");
+				if (backButton)
+				{
+					var prevPage = $(pageHistory[pageHistory.length-2]);
+					if (prevPage && !page.getAttribute("hideBackButton"))
+					{
+						backButton.style.display = "inline";
+						backButton.innerHTML = prevPage.title ? prevPage.title : "Back";
+					}
+					else
+						backButton.style.display = "none";
+				}	 
+			}		
+		}
+	},
 	/* End custom hooks needed for MediatankController */
 
 

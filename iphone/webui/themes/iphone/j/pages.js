@@ -619,10 +619,7 @@ Page.prototype = {
 
 	updateTitle: function(title) {
 		this.element.title = title;
-
-		/* Hack */
-		var pageTitle = $("pageTitle");		
-		pageTitle.innerHTML = title;
+		this.parent.application.loader.updateTitle();
 	},
 	
 	showBalloon: function(e, d) {
