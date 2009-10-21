@@ -84,6 +84,8 @@ Storage.prototype = {
 				}
 			}
 		} catch(e) {
+			alert("Error: " + e);
+			return;
 		}					
 	},
 		
