@@ -54,6 +54,7 @@ body.offline > .toolbar {
 .toolbar > h1 {
 	position: absolute;
 	left: 50%;
+	z-index: 5;
 
 	height: 45px;
 	width: 150px;
@@ -85,7 +86,7 @@ body.landscape .toolbar > h1 {
 	position: absolute;
 	top: 7px;
 	right: 6px;
-	z-index: 1;
+	z-index: 5;
 
 	width: auto;
 	min-width: 18px;
@@ -154,38 +155,36 @@ body > .toolbar > #backButton.focus {
 /************************************************************************************************/
 
 body > #pages {
-	margin-top: 45px;
-	min-height: 322px; 
-}
-
-body.landscape > #pages {
-	min-height: 223px; 
-}
-
-body > #pages > * {
-	display: none;
-	overflow-x: hidden;
-
-	margin: 0;
-	padding: 0;
+	position: relative;
 	width: 100%;
-	min-height: 322px;
-
-	background: #fff;
-
-	-webkit-transition-duration: 300ms;
-	-webkit-transition-property: -webkit-transform;
-	-webkit-transform: translateX(0%);
+}
+body.landscape > #pages {
 }
 
-body > #pages > [selected="true"] {
+body > #pages > div {
+	width: 100%;
+}
+
+body > #pages > div div.content {
+	display: none;
+
+	margin: 45px 0 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+	z-index: 10;
+}
+body > #pages > div[selected="true"] div.content {
 	display: block;
 }
+
+
+
 
 body.standalone > #pages > * {
 	position: absolute; 
 	height: 366px;
-	overflow-y: scroll;
 }
 
 body.landscape > #pages > * {
@@ -205,6 +204,7 @@ body.standalone.landscape > #pages > * {
 /************************************************************************************************/
 
 body > .footer {
+	position: relative;
 	width: 100%;	
 	
 	display: block;
@@ -306,6 +306,11 @@ body.standalone.landscape > .footer {
 
 
 
+/************************************************************************************************/
+
+div.container {
+	min-height: 100%;
+}
 
 
 
@@ -435,14 +440,17 @@ ul.list > li a.focus .title.alternate {
 
 /**********************************/
 
-ul.list > li.buttons {
+ul.buttons {
 	overflow: hidden;
 	text-align: center;
 	margin: 0;
 	padding: 0;
 	border: none;
 }
-ul.list > li.buttons a {
+ul.buttons > li {
+	display: inline;
+}
+ul.buttons > li a {
 	display: inline-block;
 	width: 120px;
 	height: 32px;
@@ -457,32 +465,33 @@ ul.list > li.buttons a {
 	
 	text-align: center;
 	font-size: 14px;
+	font-weight: bold;
 	color: #566994;
 	
 	white-space: nowrap;
 }
-ul.list > li.buttons a.focus {
+ul.buttons > li a.focus {
 	-webkit-border-image: url(../i/l/button-focus.png) 0 9 0 9;
 	color: #fff;
 }
-ul.list > li.buttons a:active,
-ul.list > li.buttons a[selected],
-ul.list > li.buttons a[selected="progress"] {
+ul.buttons > li a:active,
+ul.buttons > li a[selected],
+ul.buttons > li a[selected="progress"] {
 	background: none !important;
 }
-ul.list > li.buttons.disabled a,
-body.offline ul.list > li.buttons a {
+ul.buttons > li.disabled a,
+body.offline ul.buttons > li a {
 	opacity: 0.5;
 }
-ul.list > li.buttons.disabled a.focus,
-body.offline ul.list > li.buttons a.focus {
+ul.buttons > li.disabled a.focus,
+body.offline ul.buttons > li a.focus {
 	-webkit-border-image: url(../i/l/button.png) 0 9 0 9;
 	color: #566994 !important;
 }
 
 /**********************************/
 
-ul.list > li.buttons div {
+div.information {
 	text-align: center;
 	padding: 20px 30px;
 
@@ -492,6 +501,7 @@ ul.list > li.buttons div {
 	color: #666;
 }
 
+/**********************************/
 
 
 
@@ -500,18 +510,17 @@ ul.list > li.buttons div {
 
 /************************************************************************************************/
 
-body > #pages > #remote {
+body > #pages > #remote .content {
 	position: relative;
-	top: -45px;
 	margin: 0 0 -45px 0;
 	overflow: hidden;
-	z-index: 10;
+	z-index: 100;
 	background: #000;
 }    
-body.standalone > #pages > #remote {
+body.standalone > #pages > #remote .content {
 	height: 412px;
 }
-body.standalone.landscape > #pages > #remote {
+body.standalone.landscape > #pages > #remote .content {
 	height: 300px;
 }
 
@@ -522,13 +531,13 @@ body.standalone.landscape > #pages > #remote {
 	background: #222 url(../i/c/toolbar.png) repeat-x;
 	opacity: 0.85;
 }
-body.offline #remote > .toolbar {
+body.offline #remote .toolbar {
 	background: #222 url(../i/c/offline.png) repeat-x !important;
 }
-#remote > .toolbar .button {
+#remote .toolbar .button {
 	-webkit-border-image: url(../i/c/button.png) 0 5 0 5;
 }
-#remote > .toolbar .button.enabled {
+#remote .toolbar .button.enabled {
 	-webkit-border-image: url(../i/c/button-focus.png) 0 5 0 5;
 }
 
@@ -807,11 +816,6 @@ div.logo {
 
 
 
-}
-
-
-
-
 
 
 
@@ -879,7 +883,7 @@ body.landscape .loading {
 	margin: 0px 46px 20px;
 	font-size: 12px;
 }
-#about .container {
+#about .logoContainer {
 	position: relative;
 	width: 320px;
 	height: 150px;

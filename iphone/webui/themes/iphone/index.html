@@ -30,7 +30,7 @@
 
 	//-->
 	</script>
-    	
+    
     <div id='toolbar' class="toolbar">
         <h1 id="pageTitle"></h1>
         <a id="backButton" class="backButton button" href="#"></a>
@@ -39,66 +39,70 @@
 
 	<div id='pages'>
         <div id="loading" title="" selected="true">
-            <div class="logo">
-                <img src='i/a/logo.png' /><br />
-                <a class="aboutButton" id="aboutButton" target='ignore'>About</a>
+            <div class='content'>
+                <div class="logo">
+                    <img src='i/a/logo.png' /><br />
+                    <a class="aboutButton" id="aboutButton" target='ignore'>About</a>
+                </div>
+            
+                <div class='loading'></div>
             </div>
-        
-            <div class='loading'></div>
         </div>
         
         <div id="about" title="About">
-            <div id='aboutScroller'>
-                <script language="javascript">
-                <!--
-        
-                    function flip (event) {
-                        var element = event.currentTarget;
-                        element.className = (element.className == 'card') ? 'card flipped' : 'card';
-                    }
-        
-                //-->
-                </script>
-        
-                <div class='container'>
-                    <div class="card" onClick="flip(event)">
-                        <div class="back face"><img src='i/a/logo-flipside.png' /></div>    
-                        <div class="front face"><img src='i/a/logo.png' /></div>    
+            <div class='content'>
+                <div class='container' id='aboutScroller'>
+                    <script language="javascript">
+                    <!--
+            
+                        function flip (event) {
+                            var element = event.currentTarget;
+                            element.className = (element.className == 'card') ? 'card flipped' : 'card';
+                        }
+            
+                    //-->
+                    </script>
+            
+                    <div class='logoContainer'>
+                        <div class="card" onClick="flip(event)">
+                            <div class="back face"><img src='i/a/logo-flipside.png' /></div>    
+                            <div class="front face"><img src='i/a/logo.png' /></div>    
+                        </div>
                     </div>
-                </div>
-        
-           
-                <p style='font-size: 14px'>
-                    MediatankController allows you to control your 
-                    Networked Media Tank using your iPhone or iPod 
-                    Touch. 
-                </p>
             
-                <p>
-                    Version 1.0
-                </p>
+               
+                    <p style='font-size: 14px'>
+                        MediatankController allows you to control your 
+                        Networked Media Tank using your iPhone or iPod 
+                        Touch. 
+                    </p>
                 
-                <p>
-                    Copyright 2009 by Niels Leenheer
-                </p>
-            
-                <p>
-                    This software contains portions of: <br />
-                    <b>iUI 0.3</b> copyright 2007-9 by the iUI Project Members, 
-                    <b>iScroll 2.3</b> copyright 2009 by Matteo Spinelli and
-                    <b>Prototype Lite</b> copyright 2005 by Sam Stephenson.
-                </p>
-				
-				<p>
-					This software is distributed under a three-clause BSD license.
-				</p>
-            
-                <p>
-                    Networked Media Tank is a registered trademark of Syabas Technologies.
-                    <br />
-                    <br />
-                    <br />
-                </p>
+                    <p>
+                        Version 1.0
+                    </p>
+                    
+                    <p>
+                        Copyright 2009 by Niels Leenheer
+                    </p>
+                
+                    <p>
+                        This software contains portions of: <br />
+                        <b>iUI 0.3</b> copyright 2007-9 by the iUI Project Members, 
+                        <b>iScroll 2.3</b> copyright 2009 by Matteo Spinelli and
+                        <b>Prototype Lite</b> copyright 2005 by Sam Stephenson.
+                    </p>
+    				
+    				<p>
+    					This software is distributed under a three-clause BSD license.
+    				</p>
+                
+                    <p>
+                        Networked Media Tank is a registered trademark of Syabas Technologies.
+                        <br />
+                        <br />
+                        <br />
+                    </p>
+    			</div>
             </div>
         </div>
         
@@ -107,72 +111,74 @@
         <div id="watchfolder" title="Watch Folder"></div>
         
         <div id="remote">
-            <div class="toolbar">
-                <h1 id="remoteTitle">Remote</h1>
-                <a id='keyboard' class="button">Keyboard</a>
-            </div>
-        
-            <ul id="playback">
-                <li><a href='../../index.php?action=sendCommand&amp;command=prev'><img src='i/c/icon-previous.png' alt='' /></a></li>
-                <li><a href='../../index.php?action=sendCommand&amp;command=stop'><img src='i/c/icon-stop.png' alt='' /></a></li>
-                <li><a href='../../index.php?action=sendCommand&amp;command=play'><img src='i/c/icon-play.png' alt='' /></a></li>
-                <li><a href='../../index.php?action=sendCommand&amp;command=pause'><img src='i/c/icon-pause.png' alt='' /></a></li>
-                <li><a href='../../index.php?action=sendCommand&amp;command=next'><img src='i/c/icon-next.png' alt='' /></a></li>
-            </ul>
+            <div class='content'>
+                <div class="toolbar">
+                    <h1 id="remoteTitle">Remote</h1>
+                    <a id='keyboard' class="button">Keyboard</a>
+                </div>
+                
+                <ul id="playback">
+                    <li><a href='../../index.php?action=sendCommand&amp;command=prev'><img src='i/c/icon-previous.png' alt='' /></a></li>
+                    <li><a href='../../index.php?action=sendCommand&amp;command=stop'><img src='i/c/icon-stop.png' alt='' /></a></li>
+                    <li><a href='../../index.php?action=sendCommand&amp;command=play'><img src='i/c/icon-play.png' alt='' /></a></li>
+                    <li><a href='../../index.php?action=sendCommand&amp;command=pause'><img src='i/c/icon-pause.png' alt='' /></a></li>
+                    <li><a href='../../index.php?action=sendCommand&amp;command=next'><img src='i/c/icon-next.png' alt='' /></a></li>
+                </ul>
+                
+                <div class='contents'>
+                    <div id='buttons'>
+                        <div class='group large'>
+                            <a href='../../index.php?action=sendCommand&amp;command=back'><em style='background-position: top -80px;'></em></a>
+                            <a class='dark' href='../../index.php?action=sendCommand&amp;command=nav_up'><em style='background-position: top -640px;' ></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=source'><em style='background-position: top -480px;'></em></a>
+                            <a class='dark' href='../../index.php?action=sendCommand&amp;command=nav_left'><em style='background-position: top -680px;'></em></a>
+                            <a class='dark' href='../../index.php?action=sendCommand&amp;command=nav_ok'><em>OK</em></a>
+                            <a class='dark' href='../../index.php?action=sendCommand&amp;command=nav_right'><em style='background-position: top -720px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=info'><em style='background-position: top -160px;'></em></a>
+                            <a class='dark' href='../../index.php?action=sendCommand&amp;command=nav_down'><em style='background-position: top -760px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=home'><em style='background-position: top -120px;'></em></a>
+                        </div>
             
-            <div class='contents'>
-                <div id='buttons'>
-                    <div class='group large'>
-                        <a href='../../index.php?action=sendCommand&amp;command=back'><em style='background-position: top -80px;'></em></a>
-                        <a class='dark' href='../../index.php?action=sendCommand&amp;command=nav_up'><em style='background-position: top -640px;' ></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=source'><em style='background-position: top -480px;'></em></a>
-                        <a class='dark' href='../../index.php?action=sendCommand&amp;command=nav_left'><em style='background-position: top -680px;'></em></a>
-                        <a class='dark' href='../../index.php?action=sendCommand&amp;command=nav_ok'><em>OK</em></a>
-                        <a class='dark' href='../../index.php?action=sendCommand&amp;command=nav_right'><em style='background-position: top -720px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=info'><em style='background-position: top -160px;'></em></a>
-                        <a class='dark' href='../../index.php?action=sendCommand&amp;command=nav_down'><em style='background-position: top -760px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=home'><em style='background-position: top -120px;'></em></a>
-                    </div>
-        
-                    <div class='group'>
-                        <a href='../../index.php?action=sendCommand&amp;command=rew'><em style='background-position: top -1120px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=fwd'><em style='background-position: top -1160px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=slow'><em style='background-position: top -1200px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=eject'><em style='background-position: top -600px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=subtitle'><em style='background-position: top -200px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=audio'><em style='background-position: top -240px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=menu'><em style='background-position: top -280px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=timeseek'><em style='background-position: top -320px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=zoom'><em style='background-position: top -360px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=repeat'><em style='background-position: top -400px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=angle'><em style='background-position: top -440px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=setup'><em style='background-position: top -520px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=tv_mode'><em style='background-position: top -560px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=volume_up'><em style='background-position: top -880px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=volume_down'><em style='background-position: top -920px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=power'><em style='background-position: top -40px;'></em></a>
-                    </div>
-        
-                    <div class='group large'>
-                        <a href='../../index.php?action=sendCommand&amp;command=num_1'><em>1</em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=num_2'><em>2</em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=num_3'><em>3</em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=num_4'><em>4</em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=num_5'><em>5</em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=num_6'><em>6</em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=num_7'><em>7</em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=num_8'><em>8</em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=num_9'><em>9</em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=del'><em style='background-position: top -800px;'></em></a>
-                        <a href='../../index.php?action=sendCommand&amp;command=num_0'><em>0</em></a>
-                        <a href='../../index.php?action=control&amp;command=caps'><em style='background-position: top -840px;'></em></a>
-                    </div>
-                    
-                    <div class='group'>
-                        <a class='red' href='../../index.php?action=sendCommand&amp;command=red'><em></em></a>
-                        <a class='green' href='../../index.php?action=sendCommand&amp;command=green'><em></em></a>
-                        <a class='yellow' href='../../index.php?action=sendCommand&amp;command=yellow'><em></em></a>
-                        <a class='blue' href='../../index.php?action=sendCommand&amp;command=blue'><em></em></a>
+                        <div class='group'>
+                            <a href='../../index.php?action=sendCommand&amp;command=rew'><em style='background-position: top -1120px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=fwd'><em style='background-position: top -1160px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=slow'><em style='background-position: top -1200px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=eject'><em style='background-position: top -600px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=subtitle'><em style='background-position: top -200px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=audio'><em style='background-position: top -240px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=menu'><em style='background-position: top -280px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=timeseek'><em style='background-position: top -320px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=zoom'><em style='background-position: top -360px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=repeat'><em style='background-position: top -400px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=angle'><em style='background-position: top -440px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=setup'><em style='background-position: top -520px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=tv_mode'><em style='background-position: top -560px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=volume_up'><em style='background-position: top -880px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=volume_down'><em style='background-position: top -920px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=power'><em style='background-position: top -40px;'></em></a>
+                        </div>
+            
+                        <div class='group large'>
+                            <a href='../../index.php?action=sendCommand&amp;command=num_1'><em>1</em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=num_2'><em>2</em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=num_3'><em>3</em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=num_4'><em>4</em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=num_5'><em>5</em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=num_6'><em>6</em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=num_7'><em>7</em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=num_8'><em>8</em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=num_9'><em>9</em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=del'><em style='background-position: top -800px;'></em></a>
+                            <a href='../../index.php?action=sendCommand&amp;command=num_0'><em>0</em></a>
+                            <a href='../../index.php?action=control&amp;command=caps'><em style='background-position: top -840px;'></em></a>
+                        </div>
+                        
+                        <div class='group'>
+                            <a class='red' href='../../index.php?action=sendCommand&amp;command=red'><em></em></a>
+                            <a class='green' href='../../index.php?action=sendCommand&amp;command=green'><em></em></a>
+                            <a class='yellow' href='../../index.php?action=sendCommand&amp;command=yellow'><em></em></a>
+                            <a class='blue' href='../../index.php?action=sendCommand&amp;command=blue'><em></em></a>
+                        </div>
                     </div>
                 </div>
             </div>

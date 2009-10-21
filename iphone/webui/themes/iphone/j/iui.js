@@ -473,12 +473,6 @@ function slidePages(fromPage, toPage, backwards)
 	  
 	  checkTimer = setInterval(checkOrientAndLocation, 300);
 	  setTimeout(updatePage, 0, toPage, fromPage);
-
-	  if (canDoSlideAnim() && axis != 'y') {
-	  	fromPage.removeEventListener('webkitTransitionEnd', slideDone, false);
-	  	fromPage.style.webkitTransitionDuration = '';	  // Turn transitions back on
-	  	fromPage.style.webkitTransform = 'translateX(0%)'; //toEnd
-	  }
 	}
 }
 
@@ -527,20 +521,41 @@ function slide1(fromPage, toPage, backwards, axis, cb)
 
 function slide2(fromPage, toPage, backwards, cb)
 {
-	toPage.style.webkitTransitionDuration = '0ms'; // Turn off transitions to set toPage start offset
-	// fromStart is always 0% and toEnd is always 0%
-	// iPhone won't take % width on toPage
+	var toContent = toPage.getElementsByClassName('content')[0];
+	var fromContent = fromPage.getElementsByClassName('content')[0];
+
 	var toStart = 'translateX(' + (backwards ? '-' : '') + window.innerWidth +	'px)';
 	var fromEnd = 'translateX(' + (backwards ? '100%' : '-100%') + ')';
-	toPage.style.webkitTransform = toStart;
+
+	toContent.style.webkitTransform = toStart;
 	toPage.setAttribute("selected", "true");
-	toPage.style.webkitTransitionDuration = '';	  // Turn transitions back on
+	
 	function startTrans()
 	{
-		fromPage.style.webkitTransform = fromEnd;
-		toPage.style.webkitTransform = 'translateX(0%)'; //toEnd
+		fromContent.style.webkitTransitionProperty = '-webkit-transform';
+		fromContent.style.webkitTransitionDuration = '300ms';
+		fromContent.style.webkitTransform = fromEnd;
+		
+		toContent.style.webkitTransitionProperty = '-webkit-transform';
+		toContent.style.webkitTransitionDuration = '300ms';
+		toContent.style.webkitTransform = 'translateX(0%)'; //toEnd
 	}
-	fromPage.addEventListener('webkitTransitionEnd', cb, false);
+	function endTrans() 
+	{
+		fromContent.removeEventListener('webkitTransitionEnd', endTrans);
+		
+		cb();
+
+		fromContent.style.webkitTransitionProperty = '';
+		fromContent.style.webkitTransitionDuration = '';
+		fromContent.style.webkitTransform = '';
+		
+		toContent.style.webkitTransitionProperty = '';
+		toContent.style.webkitTransitionDuration = '';
+		toContent.style.webkitTransform = '';
+	}
+	
+	fromContent.addEventListener('webkitTransitionEnd', endTrans, false);
 	setTimeout(startTrans, 0);
 }
 

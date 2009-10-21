@@ -185,6 +185,10 @@ Favorites.prototype = {
 		document.addEventListener('onBeforePageChange', this.onBeforePageChange.bindAsEventListener(this));
 		document.addEventListener('onAfterPageChange', this.onAfterPageChange.bindAsEventListener(this));
 
+		/* Build basic page structure */
+		this.content = document.createElement('div');
+		this.content.className = 'content';
+		this.element.appendChild(this.content);
 		/* Load data */
 		this.application.storage.read('favorites', this.load.bind(this), this.update.bind(this));
 	},
@@ -446,37 +450,45 @@ Favorites.prototype = {
 	},
 	
 	update: function() {
-		this.element.innerHTML = '';
-
-		var list = document.createElement("ul");
-		list.className = 'list';
-		this.element.appendChild(list);  				
+		this.content.innerHTML = '';
 		
+		/* Create scrolling container for our buttons and list */
+		this.container = document.createElement('div');
+		this.container.className = 'container'
+		this.content.appendChild(this.container);
 		if (this.application.standalone) {
-			this.scroll = new iScroll(list);
+			this.scroll = new iScroll(this.container);
 		} else {
-			new EnhancedClickHandler(list, { hold: true, className: 'focus' });	
+			new EnhancedClickHandler(this.container, { hold: true, className: 'focus' });	
 		}
 		
+		
+		/* Explaination */
 		if (this.data.length == 0) {
-			var item = document.createElement("li");
-			item.className = 'buttons';
-			list.appendChild(item);
-
 			var block = document.createElement("div");
+			block.className = 'information';
 			block.innerHTML = "<b>Please add some Favorites</b><br/>Go to the contents of your NMT and navigate to the folder or disk that contains the item you want to add. Hold down your finger on the item for at least half a second. Then release your finger and a popup balloon will appear. Now select <em>Add to favorites</em>.";
-			item.appendChild(block);
+			this.container.appendChild(block);
 		}
+
+
+		/* Create the list with playlist items */
+		this.list = document.createElement("ul");
+		this.list.id = 'list_' + this.id;
+		this.list.className = 'list';
+		this.container.appendChild(this.list);  				
 
 		for (i = 0; i < this.data.length; i++) {
 			var item = document.createElement("li");
-			item.className = this.data[i].icon != '' ? 'hasIcon' : '';
+			item.className = this.data[i].icon != '' ? 'hasIcon item' : 'item';
+			this.list.appendChild(item);
 				
 			var link = document.createElement("a");
 			link.className = this.data[i].type;
 			link.title = this.data[i].name;
 			link.addEventListener('click', this.onClick.bindAsEventListener(this, this.data[i]));
 			link.addEventListener('gesturehold', this.onGestureHold.bindAsEventListener(this, this.data[i]));
+			item.appendChild(link);
 				
 			if (this.data[i].type == 'dir' || this.data[i].type == 'root') {
 				link.href = '#' + this.data[i].id;
@@ -499,11 +511,8 @@ Favorites.prototype = {
 			}
 				
 			var text = document.createTextNode(' ' + this.data[i].name);
-
 			span.appendChild(text);
 			link.appendChild(span);
-			item.appendChild(link);
-			list.appendChild(item);
 		}		
 	}
 };
@@ -530,9 +539,15 @@ Page.prototype = {
 			function(data) {
 				this.element = document.createElement("div");
 				this.element.id = id;
+
+				this.content = document.createElement('div');
+				this.content.className = 'content';
+				this.element.appendChild(this.content);
+
 				var loading = document.createElement("div");
 				loading.className = 'loading';
-				this.element.appendChild(loading);
+				this.content.appendChild(loading);
+				
 				$('pages').appendChild(this.element);  				
 				
 				this.create(data)
@@ -547,9 +562,15 @@ Page.prototype = {
 				
 				this.element = document.createElement("div");
 				this.element.id = id;
+				
+				this.content = document.createElement('div');
+				this.content.className = 'content';
+				this.element.appendChild(this.content);
+
 				var loading = document.createElement("div");
 				loading.className = 'loading';
-				this.element.appendChild(loading);
+				this.content.appendChild(loading);
+				
 				$('pages').appendChild(this.element);  				
 				
 				this.retrieve(id, this.create.bind(this), this.createFailure.bind(this));
@@ -598,7 +619,7 @@ Page.prototype = {
 	},
 
 	create: function(data) {
-		this.element.innerHTML = '';
+		this.content.innerHTML = '';
 		this.updateTitle(data.title);
 		this.build(data);
 
@@ -616,8 +637,7 @@ Page.prototype = {
 	},
 
 	replace: function(data) {
-		this.element.innerHTML = '';
-		this.updateTitle(data.title);
+		this.content.innerHTML = '';
 		this.build(data);
 	},
 
@@ -701,16 +721,22 @@ Page.prototype = {
 	},
 	
 	build: function(data) {
-		var list = document.createElement("ul");
-		list.className = 'list';
-		this.element.appendChild(list);  				
-		
+		/* Create scrolling container for our buttons and list */
+		this.container = document.createElement('div');
+		this.container.className = 'container'
+		this.content.appendChild(this.container);
 		if (this.parent.application.standalone) {
-			this.scroll = new iScroll(list);
+			this.scroll = new iScroll(this.container);
 		} else {
-			new EnhancedClickHandler(list, { hold: true, className: 'focus' });	
+			new EnhancedClickHandler(this.container, { hold: true, className: 'focus' });	
 		}
 		
+		
+		/* Create inline header for our buttons */
+		this.header = document.createElement("ul");
+		this.header.className = 'buttons';
+		this.container.appendChild(this.header); 
+
 		var audioDetected = [];
 		for (i = 0; i < data.files.length; i++) {
 			if (data.files[i].icon == 'audio') {
@@ -721,14 +747,19 @@ Page.prototype = {
 		if (audioDetected.length) {
 			var item = document.createElement("li");
 			item.className = 'buttons';
-			list.appendChild(item);
+			this.header.appendChild(item);
 
 			var link = document.createElement("a");
-			var text = document.createTextNode('Play all music');
-			link.appendChild(text);
+			link.appendChild(document.createTextNode('Play all music'));
 			link.href = '../../index.php?action=play&' + audioDetected.join('&');
 			item.appendChild(link);
 		}
+
+
+		/* Create the list with playlist items */
+		var list = document.createElement("ul");
+		list.className = 'list';
+		this.container.appendChild(list);  				
 
 		for (i = 0; i < data.files.length; i++) {
 			var item = document.createElement("li");
@@ -773,10 +804,13 @@ Page.prototype = {
 
 WatchFolder = Class.create();
 WatchFolder.prototype = {
-	initialize: function(application, element, status) {
+	initialize: function(application, element) {
 		this.application = application;
 		this.element = $(element);
-		this.status = $(status);
+		
+		this.content = document.createElement('div');
+		this.content.className = 'content';
+		this.element.appendChild(this.content);
 		
 		this.data = [];
 		this.folder = '';
@@ -851,10 +885,10 @@ WatchFolder.prototype = {
 		this.fetch(true);
 	},
 	
-	unmark: function(item) {
+	markAsNew: function(item) {
 		for (var i = 0; i < this.data.length; i++) {
 			if (this.data[i].id == item.id) {
-				Element.removeClassName(this.list.childNodes[i + 1], 'marked');
+				Element.removeClassName(this.list.childNodes[i], 'marked');
 				this.data[i].state = 0;
 				break;
 			}
@@ -869,10 +903,10 @@ WatchFolder.prototype = {
 		req.send(null);
 	},
 	
-	mark: function(item) {
+	markAsWatched: function(item) {
 		for (var i = 0; i < this.data.length; i++) {
 			if (this.data[i].id == item.id) {
-				Element.addClassName(this.list.childNodes[i + 1], 'marked');
+				Element.addClassName(this.list.childNodes[i], 'marked');
 				this.data[i].state = 1;
 				break;
 			}
@@ -887,9 +921,9 @@ WatchFolder.prototype = {
 		req.send(null);
 	},
 	
-	markAll: function() {
+	markAllAsWatched: function() {
 		for (var i = 0; i < this.data.length; i++) {
-			Element.addClassName(this.list.childNodes[i + 1], 'marked');
+			Element.addClassName(this.list.childNodes[i], 'marked');
 			this.data[i].state = 1;
 		}
 
@@ -905,12 +939,13 @@ WatchFolder.prototype = {
 	remove: function() {
 		for (var i = this.data.length - 1; i >= 0; i--) {
 			if (this.data[i].state == 1) {
-				Element.remove(this.list.childNodes[i + 1]);
+				Element.remove(this.list.childNodes[i]);
 				this.data.splice(i, 1);
 			}
 		}
 		
 		this.save();
+		this.updateCounter();
 		
 		// Notify NMT of removal...
 		var req = new XMLHttpRequest();
@@ -957,13 +992,13 @@ WatchFolder.prototype = {
 
 		if (d.state == 0) {
 			var actions = [
-				{ title: 'Mark as watched', action: this.mark.bind(this) }
+				{ title: 'Mark as watched', action: this.markAsWatched.bind(this) }
 			];
 		}
 					
 		if (d.state == 1) {
 			var actions = [
-				{ title: 'Mark as new', action: this.unmark.bind(this) }
+				{ title: 'Mark as new', action: this.markAsNew.bind(this) }
 			];
 		}
 
@@ -990,7 +1025,7 @@ WatchFolder.prototype = {
 			return;
 		}
 		
-		this.mark(d);	
+		this.markAsWatched(d);	
 	},
 	
 	onGestureHold: function(e, d) {
@@ -1004,36 +1039,46 @@ WatchFolder.prototype = {
 	},
 	
 	update: function() {
-		this.element.innerHTML = '';
-
-		this.list = document.createElement("ul");
-		this.list.className = 'list';
-		this.element.appendChild(this.list); 
+		this.content.innerHTML = '';
 		
+		/* Create scrolling container for our buttons and list */
+		this.container = document.createElement('div');
+		this.container.className = 'container'
+		this.content.appendChild(this.container);
 		if (this.application.standalone) {
-			this.scroll = new iScroll(this.list);
+			this.scroll = new iScroll(this.container);
 		} else {
-			new EnhancedClickHandler(this.list, { hold: true, className: 'focus' });	
+			new EnhancedClickHandler(this.container, { hold: true, className: 'focus' });	
 		}
 		
+		
+		/* Create inline header for our buttons */
+		this.header = document.createElement("ul");
+		this.header.className = 'buttons';
+		this.container.appendChild(this.header); 
+
 		var item = document.createElement("li");
-		item.className = 'buttons';
-		this.list.appendChild(item);
+		this.header.appendChild(item);
 
 		var link = document.createElement("a");
-		var text = document.createTextNode('Mark all watched');
-		link.appendChild(text);
+		link.appendChild(document.createTextNode('Mark all watched'));
 		link.target = 'ignore'; 
 		link.addEventListener('click', function(event, data) {
 			if (!this.application.offline && this.folder != '') {
-				this.markAll();	
+				this.markAllAsWatched();	
 			}
 		}.bindAsEventListener(this, this.data[i]));
 		item.appendChild(link);
 
+		if (this.data.length == 0) {
+			Element.addClassName(item, 'disabled'); 
+		}
+
+		var item = document.createElement("li");
+		this.header.appendChild(item);
+
 		var link = document.createElement("a");
-		var text = document.createTextNode('Remove watched');
-		link.appendChild(text);
+		link.appendChild(document.createTextNode('Remove watched'));
 		link.target = 'ignore'; 
 		link.addEventListener('click', function(event, data) {
 			if (!this.application.offline && this.folder != '') {
@@ -1044,12 +1089,23 @@ WatchFolder.prototype = {
 
 		if (this.folder == '') {
 			Element.addClassName(item, 'disabled'); 
+		}
 
+
+		/* Explaination */
+		if (this.folder == '') {
 			var block = document.createElement("div");
-			block.innerHTML = "<b>Please assign a Watch Folder</b><br/>Go to the contents of your NMT and navigate to the folder or disk that contains the folder you want to assign. Hold down your finger on the folder for at least half a second. Then release your finger and a popup balloon will appear. Now select <em>Watch Folder</em>.";
-			item.appendChild(block);
+			block.className = 'information';
+			block.innerHTML = "<b>Please assign a Watchfolder</b><br/>Go to the contents of your NMT and navigate to the folder or disk that contains the folder you want to assign. Hold down your finger on the folder for at least half a second. Then release your finger and a popup balloon will appear. Now select <em>Watch Folder</em>.";
+			this.container.appendChild(block);
 		}
 		
+
+		/* Create the list with watchfolder items */
+		this.list = document.createElement("ul");
+		this.list.className = 'list';
+		this.container.appendChild(this.list); 
+
 		for (i = 0; i < this.data.length; i++) {
 			var item = document.createElement("li");
 			item.className = 'hasMark';
