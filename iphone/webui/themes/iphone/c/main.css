@@ -107,7 +107,14 @@ body.landscape .toolbar > h1 {
 	border-width: 0 5px;
 	-webkit-border-image: url(../i/t/toolButton.png) 0 5 0 5;
 }
-.toolbar > .button.focus {
+.toolbarButton.blue, 
+.toolbar > .button.blue {
+	-webkit-border-image: url(../i/t/blue.png) 0 5 0 5;
+}
+.toolbarButton.focus, 
+.toolbarButton.blue.focus, 
+.toolbar > .button.focus,
+.toolbar > .button.blue.focus {
 	-webkit-border-image: url(../i/t/button-focus.png) 0 5 0 5;
 }
 
