@@ -82,6 +82,7 @@ body.landscape .toolbar > h1 {
 
 /**********************************/
 
+.toolbarButton, 
 .toolbar > .button {
 	position: absolute;
 	top: 7px;
@@ -339,6 +340,42 @@ ul.list > li a {
 	color: inherit;
 	background: url(../i/l/listArrow.png) no-repeat right center;
 }
+
+/**********************************/
+
+ul.list > li {
+	-webkit-transition-property: opacity, top;
+	-webkit-transition-duration: 300ms, 300ms;
+}
+ul.list > li.dragging {
+	background-color: #fff;
+	opacity: 0.9;
+	-webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+	-webkit-transition-duration: 300ms, 0ms;
+}
+ul.list > li div.handle {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 34px;
+	height: 34px;
+	
+	background: #fff url(../i/l/handle.png) no-repeat center center;
+	/* border-left: 1px solid #E0E0E0; */
+	
+	opacity: 0;
+	-webkit-transform: translateX(34px);
+
+	-webkit-transition-property: opacity, -webkit-transform;
+	-webkit-transition-duration: 300ms, 300ms;
+}
+.editing ul.list > li div.handle {
+	opacity: 1;
+	-webkit-transform: translateX(0);
+}
+
+/**********************************/
+
 ul.list > li a.file,
 ul.list > li a.service {
 	background-image: none;
@@ -930,4 +967,27 @@ body.landscape .loading {
     background-image: url(../i/l/loading.gif), url(../i/l/focus.png),
         url(../i/l/listArrowSel.png);
 }
+
+
+
+
+
+
+div.buttons {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 22;
+	
+	height: 0px;
+}
+
+
+a[rel=startEditing] {
+	width: 40px;
+}
+a[rel=stopEditing] {
+	width: 40px;
+}
+
 

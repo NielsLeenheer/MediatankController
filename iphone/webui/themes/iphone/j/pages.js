@@ -180,6 +180,7 @@ Favorites.prototype = {
 		this.history = [];
 		this.data = [];
 		this.loading = { id: null };
+		this.editing = false;
 
 		/* Page events */
 		document.addEventListener('onBeforePageChange', this.onBeforePageChange.bindAsEventListener(this));
@@ -189,6 +190,31 @@ Favorites.prototype = {
 		this.content = document.createElement('div');
 		this.content.className = 'content';
 		this.element.appendChild(this.content);
+
+		this.buttons = document.createElement('div');
+		this.buttons.className = 'buttons';
+		this.buttons.style.display = 'none';
+		this.element.appendChild(this.buttons);
+		
+		this.editButton = document.createElement('a');
+		this.editButton.className = 'toolbarButton';
+		this.editButton.rel = 'startEditing';
+		this.editButton.target = 'ignore';
+		this.editButton.addEventListener('click', this.startEditing.bindAsEventListener(this));
+		this.editButton.appendChild(document.createTextNode('Edit'));
+		this.buttons.appendChild(this.editButton);
+		new EnhancedClickHandler(this.editButton, { hold: true, className: 'focus', moveBack: true, prevent: true });
+
+		this.doneButton = document.createElement('a');
+		this.doneButton.className = 'toolbarButton blue';
+		this.doneButton.style.display = 'none';
+		this.doneButton.rel = 'stopEditing';
+		this.doneButton.target = 'ignore';
+		this.doneButton.addEventListener('click', this.stopEditing.bindAsEventListener(this));
+		this.doneButton.appendChild(document.createTextNode('Done'));
+		this.buttons.appendChild(this.doneButton);
+		new EnhancedClickHandler(this.doneButton, { hold: true, className: 'focus', moveBack: true, prevent: true });
+
 		/* Load data */
 		this.application.storage.read('favorites', this.load.bind(this), this.update.bind(this));
 	},
@@ -331,6 +357,13 @@ Favorites.prototype = {
 	},
 	
 	onBeforePageChange: function(e) {
+		if (e.from == 'favorites') {
+			Effect.Fade(this.buttons);
+		}
+
+		if (e.to == 'favorites') {
+			Effect.Appear(this.buttons);
+		}
 	},
 	
 	onAfterPageChange: function(e) {
@@ -370,6 +403,51 @@ Favorites.prototype = {
 		this.application.storage.write('favorites', this.data);
 	},
 
+	startEditing: function(e) {
+		e.preventDefault();
+
+		Sortable.create(this.list, {
+			hoverclass: 'hover',
+			handle: 'handle',
+			only: 'item'
+		});		
+
+		this.editing = true;
+		Element.addClassName(this.element, 'editing');
+
+		Element.hide(this.editButton);
+		Element.show(this.doneButton);
+	},
+
+	stopEditing: function(e) {
+		e.preventDefault();
+		
+		this.orderFavorites(Sortable.sequence(this.list));
+		Sortable.destroy(this.list);
+		
+		this.editing = false;
+		Element.removeClassName(this.element, 'editing');
+
+		Element.show(this.editButton);
+		Element.hide(this.doneButton);
+	},
+
+	orderFavorites: function(order) {
+		var data = [];
+		
+		for (i = 0; i < order.length; i++){
+			for (j = 0; j < this.data.length; j++) {
+				if (this.data[j].uniqueid == order[i]) {
+					data.push(this.data[j]);
+					break;
+				}
+			}
+		}
+		
+		this.data = data;
+		this.save();
+	},
+
 	clear: function(data) {
 		this.data = [];
 		this.save();
@@ -377,6 +455,7 @@ Favorites.prototype = {
 	},
 
 	add: function(item) {
+		item.uniqueid = createUUID();
 		this.data.unshift(item);
 		this.save();
 		this.update();
@@ -430,7 +509,7 @@ Favorites.prototype = {
 	},
 
 	onClick: function(e, d) {
-		if (PopupBalloon.active) {
+		if (this.editing || PopupBalloon.active) {
 			e.preventDefault();
 			e.stopPropagation();
 			return;
@@ -440,7 +519,7 @@ Favorites.prototype = {
 	},
 	
 	onGestureHold: function(e, d) {
-		if (PopupBalloon.active) {
+		if (this.editing || PopupBalloon.active) {
 			e.preventDefault();
 			e.stopPropagation();
 			return;
@@ -480,6 +559,7 @@ Favorites.prototype = {
 
 		for (i = 0; i < this.data.length; i++) {
 			var item = document.createElement("li");
+			item.id = 'item_' + this.data[i].uniqueid;
 			item.className = this.data[i].icon != '' ? 'hasIcon item' : 'item';
 			this.list.appendChild(item);
 				
@@ -513,6 +593,10 @@ Favorites.prototype = {
 			var text = document.createTextNode(' ' + this.data[i].name);
 			span.appendChild(text);
 			link.appendChild(span);
+
+			var div = document.createElement("div");
+			div.className = 'handle';
+			item.appendChild(div);
 		}		
 	}
 };
