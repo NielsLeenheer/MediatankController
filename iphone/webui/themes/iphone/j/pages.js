@@ -666,9 +666,9 @@ Page.prototype = {
 		if (d.type == 'dir' || d.type == 'root') {
 			if (!this.parent.application.offline && d.id.substr(0, 11) == 'filesystem_') {
 				if (this.parent.application.watchfolder.folder != d.path) {
-					actions.push({ title: 'Watch Folder', action: this.parent.application.watchfolder.change.bind(this.parent.application.watchfolder) });
+					actions.push({ title: 'Set Watchfolder', action: this.parent.application.watchfolder.change.bind(this.parent.application.watchfolder) });
 				} else {
-					actions.push({ title: 'Clear Watch Folder', action: this.parent.application.watchfolder.clear.bind(this.parent.application.watchfolder) });
+					actions.push({ title: 'Clear Watchfolder', action: this.parent.application.watchfolder.clear.bind(this.parent.application.watchfolder) });
 				}
 			}
 		} 
