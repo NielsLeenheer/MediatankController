@@ -589,6 +589,7 @@ Page.prototype = {
 	},
 
 	retrieve: function(id, success, failure) {
+		try {
 		var req = new XMLHttpRequest();
 		
 		req.onerror = function() {
@@ -616,6 +617,10 @@ Page.prototype = {
  
 		req.open("GET", "../../index.php?action=retrieve&id=" + id, true);
 		req.send(null);
+		} catch(e) {
+			alert("Retrieve error: " + e);
+			return;
+		}					
 	},
 
 	create: function(data) {
