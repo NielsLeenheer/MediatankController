@@ -1108,12 +1108,7 @@ WatchFolder.prototype = {
 			}
 		}
 		
-		if (counter > 0) {
-			this.status.title = counter;	
-			this.status.style.display = 'block';
-		} else {
-			this.status.style.display = 'none';
-		}
+		this.application.manager.update('watchfolder', counter);
 	}
 }
 

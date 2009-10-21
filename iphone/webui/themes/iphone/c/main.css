@@ -204,7 +204,7 @@ body > .footer {
 	margin: 0;
 	padding: 0;
 	white-space: nowrap;
-	z-index: 20;
+	z-index: 200;
 }
 body.standalone > .footer {
 	position: absolute;
@@ -220,7 +220,7 @@ body.standalone.landscape > .footer {
 	display: inline-block;
 	margin: 3px 0 0 0;
 	padding: 0;
-	width: 70px;
+	width: 62px;
 }
 .footer li a {
 	text-decoration: none;
@@ -248,7 +248,7 @@ body.standalone.landscape > .footer {
 	float: right;
 
 	top: 0px;
-	right: 4px;
+	right: 2px;
 	z-index: 1000;
 	color: #fff;
 	border-width: 0 12px;
@@ -266,29 +266,29 @@ body.standalone.landscape > .footer {
 	margin: 0 -6px;
 	content: attr(title);
 }
-.footer li a#footerFavorite {
-	background-position: 3px 0;
+.footer li a[rel=favorites] {
+	background-position: 0px 0;
 }
-.footer li a#footerFavorite.selected {
-	background-position: 3px -50px;
+.footer li a[rel=favorites].selected {
+	background-position: 0px -50px;
 }
-.footer li a#footerWatchlist {
-	background-position: -57px 0;
+.footer li a[rel=watchfolder] {
+	background-position: -60px 0;
 }
-.footer li a#footerWatchlist.selected {
-	background-position: -57px -50px;
+.footer li a[rel=watchfolder].selected {
+	background-position: -60px -50px;
 }
-.footer li a#footerRemote {
-	background-position: -116px 0;
+.footer li a[rel=remote] {
+	background-position: -120px 0;
 }
-.footer li a#footerRemote.selected {
-	background-position: -116px -50px;
+.footer li a[rel=remote].selected {
+	background-position: -120px -50px;
 }
-.footer li a#footerContents {
-	background-position: -177px 0;
+.footer li a[rel=contents] {
+	background-position: -180px 0;
 }
-.footer li a#footerContents.selected {
-	background-position: -177px -50px;
+.footer li a[rel=contents].selected {
+	background-position: -180px -50px;
 }
 
 

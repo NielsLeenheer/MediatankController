@@ -10,16 +10,44 @@ Manager.prototype = {
 		this.current = null;
 		this.element = null;
 		
-		if (this.options.buttons) {
-			for (i = 0; i < this.options.buttons.length; i++) {
-				var button = document.getElementById(this.options.buttons[i]);
-				if (button) {
-					button.addEventListener('click', this.onClick.bindAsEventListener(this));
-					this.buttons[i] = button;
+		if (this.options.parent) {
+			this.options.parent = $(this.options.parent);
+			
+			if (this.options.areas) {
+				for (var id in this.options.areas) {
+					this.options.areas[id] = Object.extend({
+						name: 'Untitled',
+						value: 0
+					}, this.options.areas[id]);
+					
+					var element = document.createElement('li');
+					this.options.parent.appendChild(element);
+					
+					var link = document.createElement('a');
+					link.target = 'ignore';
+					link.rel = id;
+					link.addEventListener('click', this.onClick.bindAsEventListener(this));
+					element.appendChild(link);
+					
+					var status = document.createElement('div');
+					if (this.options.areas[id].value) {
+						status.title = this.options.areas[id].value;
+					} else {
+						status.style.display = 'none';
+				}
+					link.appendChild(status);
+					
+					var text = document.createTextNode(this.options.areas[id].name);
+					link.appendChild(text);
+					
+					this.options.areas[id].link = link;
+					this.options.areas[id].status = status;
 				}
 			}
 		}
+	},
 
+	activate: function() {
 		this.application.storage.read('managerCurrent', function(id) {
 			if (this.application.loader.current == 'about') {
 				return;
@@ -31,8 +59,8 @@ Manager.prototype = {
 				this.select(this.options.standard);
 			}
 
-			if (this.options.onInit) {
-				this.options.onInit(this.current);
+			if (this.options.onActivate) {
+				this.options.onActivate(this.current);
 			}
 		}.bind(this), function() {
 			if (this.application.loader.current == 'about') {
@@ -41,10 +69,22 @@ Manager.prototype = {
 									
 			this.select(this.options.standard);
 
-			if (this.options.onInit) {
-				this.options.onInit(this.current);
+			if (this.options.onActivate) {
+				this.options.onActivate(this.current);
 			}
 		}.bind(this));
+	},
+	
+	update: function(id, value) {
+		if (this.options.areas[id]) {
+			if (value) {
+				this.options.areas[id].status.title = value;
+				this.options.areas[id].status.style.display = 'block';
+			} else {
+				this.options.areas[id].status.title = '';
+				this.options.areas[id].status.style.display = 'none';
+			}
+		}
 	},
 	
 	select: function(id) {
@@ -52,15 +92,13 @@ Manager.prototype = {
 			Element.removeClassName(this.element, 'selected');
 		}
 
-		for (i = 0; i < this.buttons.length; i++) {
-			if (this.buttons[i].rel == id) {
-				this.element = this.buttons[i];
-				this.current = this.element.rel;
+		if (this.options.areas[id]) {
+			this.element = this.options.areas[id].link;
+			this.current = id;
 
-				Element.addClassName(this.element, 'selected');
+			Element.addClassName(this.element, 'selected');
 				this.application.storage.write('managerCurrent', this.current);
 			}
-		}
 	},
 	
 	onClick: function(event) {

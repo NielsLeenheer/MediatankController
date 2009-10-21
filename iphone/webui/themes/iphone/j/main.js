@@ -31,10 +31,65 @@ MediatankController.prototype = {
 		});
 
 
+		/* Initialize manager */
+		this.manager    	= new Manager(this, {
+			parent: 		'footer',
+			standard:		'contents',
+			areas:			{
+								'contents':			{ name: 'Contents' },
+								'favorites': 		{ name: 'Favorites' },
+								'watchfolder':		{ name: 'Watchfolder' },
+								'remote': 			{ name: 'Remote' }
+							},
+			onActivate:		function(id) {
+								switch(id) {
+									case 'contents':
+										this.contents.activate();
+										break;
+									case 'favorites':
+										this.favorites.activate();
+										break;
+									case 'watchfolder':
+										this.watchfolder.activate();
+										break;
+									case 'remote':
+										this.remote.activate();
+										break;
+								}
+							}.bind(this),
+			onChange:		function(id) {
+								switch(id) {
+									case 'contents':
+										this.contents.restore();
+										break;
+									case 'favorites':
+										this.favorites.restore();
+										break;
+									case 'watchfolder':
+										this.watchfolder.restore();
+										break;
+									case 'remote':
+										this.remote.restore();
+										break;
+								}
+							}.bind(this),
+			onHome:			function(id) {
+								switch(id) {
+									case 'contents':
+										this.contents.home();
+										break;
+									case 'favorites':
+										this.favorites.home();
+										break;
+								}
+							}.bind(this),
+		});		
+		
+		
 		/* Initialize pages */
 		this.contents    	= new Contents(this);
 		this.favorites 		= new Favorites(this, 'favorites');
-		this.watchfolder	= new WatchFolder(this, 'watchfolder', 'watchfolderStatus');
+		this.watchfolder	= new WatchFolder(this, 'watchfolder');
 		this.remote 		= new Remote(this, 'remote');
 		this.about 			= new About(this, 'about');
 
@@ -42,11 +97,6 @@ MediatankController.prototype = {
 		/* Initialize connection to IUI */
 		this.loader 		= new IUILoader({
 			onChange:		function(id) {
-								if (!this.manager) {
-									this.refresh.hide();
-									return;
-								}
-				
 								if (this.manager.current == 'contents') {
 									this.contents.onPageChanged(id);
 									this.refresh.show();
@@ -75,10 +125,6 @@ MediatankController.prototype = {
 								}
 							}.bind(this),
 			onPrepare:		function(id) {
-								if (!this.manager) {
-									return;
-								}
-								
 								if (this.manager.current == 'favorites') {
 									if (id == 'favorites') {
 										this.refresh.hide();	
@@ -234,54 +280,8 @@ MediatankController.prototype = {
 	startApplication: function() {
 		/* Wait a bit before actually starting the app */
 		window.setTimeout(function() {
-			this.manager    	= new Manager(this, {
-				buttons:		[ 'footerContents', 'footerFavorite', 'footerWatchlist', 'footerRemote' ], 
-				standard:		'contents',
-				onInit:			function(id) {
-									switch(id) {
-										case 'contents':
-											this.contents.activate();
-											break;
-										case 'favorites':
-											this.favorites.activate();
-											break;
-										case 'watchfolder':
-											this.watchfolder.activate();
-											break;
-										case 'remote':
-											this.remote.activate();
-											break;
-									}
-								}.bind(this),
-				onChange:		function(id) {
-									switch(id) {
-										case 'contents':
-											this.contents.restore();
-											break;
-										case 'favorites':
-											this.favorites.restore();
-											break;
-										case 'watchfolder':
-											this.watchfolder.restore();
-											break;
-										case 'remote':
-											this.remote.restore();
-											break;
-									}
-								}.bind(this),
-				onHome:			function(id) {
-									switch(id) {
-										case 'contents':
-											this.contents.home();
-											break;
-										case 'favorites':
-											this.favorites.home();
-											break;
-									}
-								}.bind(this),
-			});
-			
 			this.connection = new Connection(this);
+			this.manager.activate();
 		}.bind(this), 1500);
 	},
 
