@@ -26,6 +26,7 @@ MediatankController.prototype = {
 			areas:			{
 								'contents':			{ name: 'Contents' },
 								'favorites': 		{ name: 'Favorites' },
+								'playlists': 		{ name: 'Playlists' },
 								'watchfolder':		{ name: 'Watchfolder' },
 								'remote': 			{ name: 'Remote' }
 							},
@@ -36,6 +37,9 @@ MediatankController.prototype = {
 										break;
 									case 'favorites':
 										this.favorites.activate();
+										break;
+									case 'playlists':
+										this.playlists.activate();
 										break;
 									case 'watchfolder':
 										this.watchfolder.activate();
@@ -53,6 +57,9 @@ MediatankController.prototype = {
 									case 'favorites':
 										this.favorites.restore();
 										break;
+									case 'playlists':
+										this.playlists.restore();
+										break;
 									case 'watchfolder':
 										this.watchfolder.restore();
 										break;
@@ -69,6 +76,9 @@ MediatankController.prototype = {
 									case 'favorites':
 										this.favorites.home();
 										break;
+									case 'playlists':
+										this.playlists.home();
+										break;
 								}
 							}.bind(this),
 		});		
@@ -77,6 +87,7 @@ MediatankController.prototype = {
 		/* Initialize pages */
 		this.contents    	= new Contents(this);
 		this.favorites 		= new Favorites(this, 'favorites');
+		this.playlists		= new Playlists(this, 'playlists');
 		this.watchfolder	= new WatchFolder(this, 'watchfolder');
 		this.remote 		= new Remote(this, 'remote');
 		this.about 			= new About(this, 'about');
@@ -98,6 +109,10 @@ MediatankController.prototype = {
 									}
 								}
 								
+								if (this.manager.current == 'playlists') {
+									this.refresh.hide();
+								}
+
 								if (this.manager.current == 'watchfolder') {
 									if (this.watchfolder.folder != '') {
 										this.refresh.show();

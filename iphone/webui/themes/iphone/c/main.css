@@ -304,6 +304,14 @@ body.standalone.landscape > .footer {
 .footer li a[rel=contents].selected {
 	background-position: -180px -50px;
 }
+.footer li a[rel=playlists] {
+	background-position: -240px 0;
+}
+.footer li a[rel=playlists].selected {
+	background-position: -240px -50px;
+}
+
+
 
 
 
@@ -540,6 +548,32 @@ div.information {
 
 /**********************************/
 
+ul.list > li span.status {
+	position: absolute;
+	top: 7px;
+	right: 42px;
+	
+	color: #fff;
+	border-width: 0 10px;
+	-webkit-border-image: url(../i/l/status.png) 0 10 0 10;
+
+	height: 20px;
+	line-height: 19px;
+
+	text-align: center;
+	font-size: 17px;
+	font-weight: bold;
+	font-style: normal;
+}
+ul.list > li span.status:before {
+	content: attr(title);
+}
+ul.list > li a.focus span.status,
+ul.list > li a[selected] span.status,
+ul.list > li a.selection span.status {
+	color: #194fdb;
+	-webkit-border-image: url(../i/l/status-selected.png) 0 10 0 10;
+}
 
 
 
@@ -957,6 +991,87 @@ body.landscape .loading {
 
 
 
+/************************************************************************************************/
+
+.dialog {
+	position: absolute;
+	top: 0;
+	min-height: 460px;
+	height: 100%;
+	width: 100%;
+	z-index: 1000;
+	
+	background: #fff;
+}
+.dialog .toolbar {
+	height: 75px;
+	background: url(../i/t/large.png) #6d84a2 repeat-x;
+}
+.dialog .toolbar > .button {
+	top: 37px;
+}
+.dialog .toolbar > h1 {
+	top: 40px;
+}
+.dialog .toolbar > em {
+	position: absolute;
+	left: 50%;
+
+
+	position: absolute;
+	left: 50%;
+
+	height: 38px;
+	width: 300px;
+	margin: 1px 0 0 -150px;
+	overflow: hidden;
+
+	font-style: normal;
+	font-size: 14px;
+	text-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: #30425e;
+	opacity: 1;
+}
+
+.dialog .contents {
+	position: absolute;
+	top: 75px;
+	width: 100%;
+	min-height: 385px; 
+}
+body.landscape > .dialog .contents {
+	min-height: 225px; 
+}
+
+.dialog ul.list {
+	width: 100%;
+	min-height: 385px; 
+}
+body.landscape > .dialog ul.list {
+	min-height: 225px; 
+}
+
+.dialog ul.list > li a {
+	background-image: none;
+}
+.dialog ul.list > li a.selection {
+	background-color: #ccdded;
+	background-image: url(../i/l/selection.png);
+	background-repeat: repeat-x;
+	background-position: left top;
+}
+.dialog ul.list > li a.focus,
+.dialog ul.list > li a[selected] {
+	background-image: url(../i/l/focus.png);
+	background-repeat: repeat-x;
+	background-position: left top;
+}
+.dialog ul.list > li span.status {
+	right: 6px;
+}
 
 
 
