@@ -1,8 +1,9 @@
 
 MediatankController = Class.create();
 MediatankController.prototype = {
-	initialize: function(standalone) {
+	initialize: function(standalone, theme) {
 		this.standalone = standalone;
+        this.theme = theme;
 		
 		/* Disable scrolling */
 		if (this.standalone) {
