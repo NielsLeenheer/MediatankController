@@ -322,7 +322,7 @@ EnhancedClickHandler.prototype = {
 			
 			if (this.highlight) {
 				this.feedback = document.createElement('img');
-				this.feedback.src = 'i/g/highlight.png';
+				this.feedback.src = '../iphone/i/g/highlight.png';
 				this.feedback.style.position = 'absolute';
 				this.feedback.style.display = 'block';
 				this.feedback.style.zIndex = 1000;
