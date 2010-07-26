@@ -5,7 +5,7 @@
 	// Copyright 2009, Niels Leenheer
 
 	// Start by going to the following url in Safari on your iPhone:
-	// http://IP-OF-YOUR-NMT:9999/iPhoneController_web/
+	// http://IP-OF-YOUR-NMT:9999/MediatankController_web/
 
 	$config  = parse_ini_file(dirname(dirname(__FILE__)) . "/config.ini", true);
 	
