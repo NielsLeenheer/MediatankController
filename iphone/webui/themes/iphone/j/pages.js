@@ -1433,19 +1433,19 @@ Playlists.prototype = {
 	},
 	
 	onBeforePageChange: function(e) {
-		if (e.from == 'playlists') {
+		if (e.from && e.from == 'playlists') {
 			Effect.Fade(this.buttons);
 		}
 
-		if (e.to == 'playlists') {
+		if (e.to && e.to == 'playlists') {
 			Effect.Appear(this.buttons);
 		}
 
-		if (e.from.substr(0, 9) == 'playlist_') {
+		if (e.from && e.from.substr(0, 9) == 'playlist_') {
 			this.playlists[e.from].onBeforePageChange(e)
 		}
 
-		if (e.to.substr(0, 9) == 'playlist_') {
+		if (e.to && e.to.substr(0, 9) == 'playlist_') {
 			this.playlists[e.to].onBeforePageChange(e)
 		}
 	},
