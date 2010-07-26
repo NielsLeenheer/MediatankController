@@ -319,6 +319,7 @@ body.standalone.landscape > .footer {
 
 div.container {
 	min-height: 100%;
+	background: #fff;
 }
 
 
@@ -335,6 +336,7 @@ ul.list > li {
 	margin: 0;
 	padding: 8px 0 8px 10px;
 	border-bottom: 1px solid #E0E0E0;
+	background-color: #fff;
 	list-style: none;
 
 	font-size: 16px;
@@ -352,27 +354,26 @@ ul.list > li a {
 /**********************************/
 
 ul.list > li {
-	-webkit-transition-property: opacity, top;
-	-webkit-transition-duration: 300ms, 300ms;
+	-webkit-transition-property: -webkit-translate;
+	-webkit-transition-duration: 300ms;
 }
 ul.list > li.dragging {
-	background-color: #fff;
 	opacity: 0.9;
 	-webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
-	-webkit-transition-duration: 300ms, 0ms;
+	-webkit-transition-duration: 0ms;
 }
 ul.list > li div.handle {
 	position: absolute;
 	top: 0px;
 	right: 0px;
-	width: 34px;
+	width: 38px;
 	height: 34px;
 	
 	background: #fff url(../i/l/handle.png) no-repeat center center;
 	/* border-left: 1px solid #E0E0E0; */
 	
 	opacity: 0;
-	-webkit-transform: translateX(34px);
+	-webkit-transform: translateX(38px);
 
 	-webkit-transition-property: opacity, -webkit-transform;
 	-webkit-transition-duration: 300ms, 300ms;
