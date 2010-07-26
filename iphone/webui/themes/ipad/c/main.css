@@ -1,0 +1,184 @@
+body.standalone > .footer {
+	top: 955px;
+}
+body.standalone.landscape > .footer {
+	top: 699px;
+}
+
+
+
+
+body.standalone > #pages > * {
+	position: absolute; 
+	height: 911px;
+}
+
+body.standalone.landscape > #pages > * {
+	height: 655px;
+}
+
+
+
+
+.footer li {
+	display: inline-block;
+	margin: 3px 0 0 0;
+	padding: 0;
+	width: 82px;
+}
+.footer li a div {
+	right: 12px;
+}
+.footer li a[rel=favorites] {
+	background-position: 10px 0;
+}
+.footer li a[rel=favorites].selected {
+	background-position: 10px -50px;
+}
+.footer li a[rel=watchfolder] {
+	background-position: -50px 0;
+}
+.footer li a[rel=watchfolder].selected {
+	background-position: -50px -50px;
+}
+.footer li a[rel=remote] {
+	background-position: -110px 0;
+}
+.footer li a[rel=remote].selected {
+	background-position: -110px -50px;
+}
+.footer li a[rel=contents] {
+	background-position: -170px 0;
+}
+.footer li a[rel=contents].selected {
+	background-position: -170px -50px;
+}
+.footer li a[rel=playlists] {
+	background-position: -230px 0;
+}
+.footer li a[rel=playlists].selected {
+	background-position: -230px -50px;
+}
+
+
+
+
+.toolbar {
+	background: url(../i/t/toolbar.png) #dfe1e6 repeat-x;
+}
+
+
+.toolbar > h1 {
+	text-shadow: rgba(255, 255, 255, 0.6) 0px 1px 0;
+	color: #4e525b;
+    
+	width: 300px;
+	margin: 1px 0 0 -150px;
+    
+}
+
+
+
+.toolbarButton, 
+.toolbar > .button {
+	-webkit-border-image: url(../i/t/toolButton.png) 0 5 0 5;
+}
+.toolbarButton.blue, 
+.toolbar > .button.blue {
+	-webkit-border-image: url(../i/t/blue.png) 0 5 0 5;
+}
+.toolbarButton.focus, 
+.toolbarButton.blue.focus, 
+.toolbar > .button.focus,
+.toolbar > .button.blue.focus {
+	-webkit-border-image: url(../i/t/button-focus.png) 0 5 0 5;
+}
+body > .toolbar > #backButton {
+    max-width: 100px;
+	-webkit-border-image: url(../i/t/backButton.png) 0 8 0 14;
+}
+body > .toolbar > #backButton.focus {
+	-webkit-border-image: url(../i/t/back-focus.png) 0 8 0 14;
+}
+
+
+
+
+
+body.standalone > #pages > #remote .content {
+	height: 956px;
+}
+body.standalone.landscape > #pages > #remote .content {
+	height: 700px;
+}
+
+body.standalone #remote .contents {
+	height: 956px;
+}
+body.standalone.landscape #remote .contents {
+	height: 700px;
+}
+
+
+body.standalone #remote .contents #buttons {
+	min-height: 956px;
+}
+body.standalone.landscape #remote .contents #buttons {
+	min-height: 700px;
+}
+
+
+
+
+#remote #buttons {
+    text-align: center;
+}
+#remote #buttons .group {
+	display: inline-block;
+	min-width: 100px;
+	float: left;
+    clear: both;
+	max-width: 552px;
+    margin: 0 0 0 92px;
+} 
+#remote #buttons .group.large {
+	max-width: 264px;
+	float: left;
+	display: inline-block;
+	margin: 12px 0 12px 224px;
+}
+#remote #buttons .group:last-child {
+	margin: 12px 0 12px 224px;
+
+} 
+body.landscape #remote #buttons .group {
+    margin: 0 0 0 220px;    
+}
+body.landscape #remote #buttons .group.large {
+	margin: 12px 0 12px 352px;
+}
+body.landscape #remote #buttons .group:last-child {
+	margin: 12px 0 12px 352px;
+}
+
+
+
+
+
+#loading .logo {
+	margin-top: 100px;
+}
+
+
+#about p {
+	margin: 0px 220px 20px;
+	font-size: 12px;
+}
+#about .logoContainer {
+	position: relative;
+	width: 440px;
+	height: 216px;
+	-webkit-perspective: 600;
+
+	margin: 70px auto 40px;
+}
