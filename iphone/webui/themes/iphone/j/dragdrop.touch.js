@@ -235,9 +235,14 @@ var Draggable = Class.create({
 //        new Effect.Move(element, { x: -left_offset, y: -top_offset, duration: dur,
 //          queue: {scope:'_draggable', position:'end'}
 //        });
-		var originalLeft = parseFloat(element.getStyle('left') || '0');
-		var originalTop  = parseFloat(element.getStyle('top')  || '0');
-		Element.setStyle(element, { left: originalLeft - left_offset, top: originalTop - top_offset });
+
+		if (typeof WebKitCSSMatrix == "object") {
+			element.style.webkitTransform = '';
+		} else {
+			var originalLeft = parseFloat(element.getStyle('left') || '0');
+			var originalTop  = parseFloat(element.getStyle('top')  || '0');
+			Element.setStyle(element, { left: originalLeft - left_offset, top: originalTop - top_offset });
+		}
       },
       endeffect: function(element) {
 //        var toOpacity = Object.isNumber(element._opacity) ? element._opacity : 1.0;
@@ -499,11 +504,20 @@ var Draggable = Class.create({
     }}
 
     var style = this.element.style;
-    if((!this.options.constraint) || (this.options.constraint=='horizontal'))
-      style.left = p[0] + "px";
-    if((!this.options.constraint) || (this.options.constraint=='vertical'))
-      style.top  = p[1] + "px";
-
+	if (typeof WebKitCSSMatrix == "object") {
+		if(this.options.constraint=='horizontal')
+		  style.webkitTransform = 'translate3d(' + p[0] + 'px, 0, 0)';
+		else if(this.options.constraint=='vertical')
+		  style.webkitTransform = 'translate3d(0, ' + p[1] + 'px, 0)';
+		else 
+		  style.webkitTransform = 'translate3d(' + p[0] + 'px, ' + p[1] + 'px, 0)';
+	} else {
+		if((!this.options.constraint) || (this.options.constraint=='horizontal')) {
+      		style.left = p[0] + "px";
+		}
+    	if((!this.options.constraint) || (this.options.constraint=='vertical'))
+      		style.top  = p[1] + "px";
+	}
     if(style.visibility=="hidden") style.visibility = ""; // fix gecko rendering
   },
 
