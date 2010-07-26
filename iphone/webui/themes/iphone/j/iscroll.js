@@ -414,7 +414,7 @@ iScroll.prototype = {
 		}
 
 		var newDuration = 1750;
-		var newDistance = newDuration * speed * 0.7;
+		var newDistance = newDuration * speed * 0.5;
 
 		if (newDistance != 0) {
 			var newPosition = this.position + newDistance;
