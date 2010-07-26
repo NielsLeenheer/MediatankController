@@ -39,6 +39,7 @@ class MediaTypes {
 	function isPlaylist($file) {
         switch(end(explode(".", $file))) {
             case 'jsp':
+            case 'pls':
                 return true;
         }
         
