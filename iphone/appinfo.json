@@ -1,7 +1,7 @@
 {
     appinfo_format="1",
     name="MediatankController",
-    version="1.0",
+    version="1.2",
     enabled="1",
     webui_path="#PATH#/webui"
 }
