@@ -38,10 +38,9 @@ body {
     	-moz-box-sizing: border-box;
     	-webkit-box-sizing: border-box;
 	width: 100%;
-	height: 45px;
+	height: 44px;
 	padding: 10px;
 	
-    	border-bottom: 1px solid #2d3642;
 	background: url(../i/t/toolbar.png) #6d84a2 repeat-x;
 }
 
@@ -169,7 +168,7 @@ body > #pages > div {
 body > #pages > div div.content {
 	display: none;
 
-	margin: 45px 0 0;
+	margin: 44px 0 0;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
@@ -185,15 +184,15 @@ body > #pages > div[selected="true"] div.content {
 
 body.standalone > #pages > * {
 	position: absolute; 
-	height: 366px;
+	height: 367px;
 }
 
 body.landscape > #pages > * {
-	min-height: 223px;
+	min-height: 224px;
 }
 
 body.standalone.landscape > #pages > * {
-	height: 255px;
+	height: 256px;
 }
 
 
@@ -600,7 +599,7 @@ body.standalone.landscape > #pages > #remote .content {
 
 #remote .toolbar {
 	z-index: 11 !important;
-	background: #222 url(../i/c/toolbar.png) repeat-x;
+	background: #222 url(../i/c/toolbar.png) repeat-x !important;
 	opacity: 0.85;
 }
 body.offline #remote .toolbar {
@@ -611,6 +610,10 @@ body.offline #remote .toolbar {
 }
 #remote .toolbar .button.enabled {
 	-webkit-border-image: url(../i/c/button-focus.png) 0 5 0 5;
+}
+#remote .toolbar h1 {
+	text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
+    color: #fff;
 }
 
 /**********************************/
@@ -671,7 +674,6 @@ body.landscape #remote #playback li {
 } 
 body.standalone #remote .contents {
 	height: 412px;
-	overflow-y: scroll;
 }
 body.standalone.landscape #remote .contents {
 	height: 300px;
