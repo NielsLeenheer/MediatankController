@@ -109,7 +109,7 @@ class MediaTypes {
 	}
 
 	function isVisible($file) {
-        return MediaTypes::isPlaylist($file) || MediaTypes::isVideo($file) || MediaTypes::isAudio($file);
+        return !MediaTypes::isHidden($file) && (MediaTypes::isPlaylist($file) || MediaTypes::isVideo($file) || MediaTypes::isAudio($file));
 	}
 }
 
