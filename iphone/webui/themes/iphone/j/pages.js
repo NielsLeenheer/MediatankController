@@ -579,7 +579,7 @@ Favorites.prototype = {
 			if (this.data[i].icon != '') {
 				var img = document.createElement("img");
 				img.className = 'icon';
-				img.src = 'i/l/icon-' + this.data[i].icon + '.png';
+				img.src = '../iphone/i/l/icon-' + this.data[i].icon + '.png';
 				link.appendChild(img);
 			}
 				
@@ -871,7 +871,7 @@ Page.prototype = {
 			if (data.files[i].icon != '') {
 				var img = document.createElement("img");
 				img.className = 'icon';
-				img.src = 'i/l/icon-' + data.files[i].icon + '.png';
+				img.src = '../iphone/i/l/icon-' + data.files[i].icon + '.png';
 				link.appendChild(img);
 			}
 				
@@ -1222,7 +1222,7 @@ WatchFolder.prototype = {
 			if (this.data[i].icon != '') {
 				var img = document.createElement("img");
 				img.className = 'icon';
-				img.src = 'i/l/icon-' + this.data[i].icon + '.png';
+				img.src = '../iphone/i/l/icon-' + this.data[i].icon + '.png';
 				link.appendChild(img);
 			}
 				
@@ -1368,7 +1368,7 @@ Playlists.prototype = {
 		this.createButton.addEventListener('click', this.createPlaylist.bindAsEventListener(this));
 		
 		var image = document.createElement('img');
-		image.src = 'i/t/add.png';
+		image.src = '../iphone/i/t/add.png';
 		this.createButton.appendChild(image);
 		this.buttons.appendChild(this.createButton);
 		new EnhancedClickHandler(this.createButton, { hold: true, className: 'focus', moveBack: true, prevent: true });
@@ -1690,7 +1690,7 @@ Playlists.prototype = {
 			
 			var img = document.createElement("img");
 			img.className = 'icon';
-			img.src = 'i/l/icon-playlist.png';
+			img.src = '../iphone/i/l/icon-playlist.png';
 			link.appendChild(img);
 			
 			var span = document.createElement("span");
@@ -1787,7 +1787,7 @@ PlaylistDialog.prototype = {
 
 			var img = document.createElement("img");
 			img.className = 'icon';
-			img.src = 'i/l/icon-playlist.png';
+			img.src = '../iphone/i/l/icon-playlist.png';
 			link.appendChild(img);
 				
 			var span = document.createElement("span");
@@ -2149,7 +2149,7 @@ Playlist.prototype = {
 			if (this.data[i].icon != '') {
 				var img = document.createElement("img");
 				img.className = 'icon';
-				img.src = 'i/l/icon-' + this.data[i].icon + '.png';
+				img.src = '../iphone/i/l/icon-' + this.data[i].icon + '.png';
 				link.appendChild(img);
 			}
 				
