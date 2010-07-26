@@ -397,7 +397,13 @@
 			break;
 			
 		default:
+			// Automatically switch between iPhone and iPad themes
+			if (strpos($_SERVER['HTTP_USER_AGENT'], 'iPad') !== false) {
+				$config['template'] = 'ipad';
+			}
+			
 			header ("Location: themes/" . $config['template'] . "/index.html");
+			
 			exit;
 			break;
 	}
