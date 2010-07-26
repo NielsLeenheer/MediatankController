@@ -182,3 +182,35 @@ body.landscape #remote #buttons .group:last-child {
 
 	margin: 70px auto 40px;
 }
+
+
+
+
+
+.dialog .toolbar {
+	background: url(../i/t/large.png) #dfe1e6 repeat-x;
+}
+.dialog .toolbar > em {
+	text-shadow: rgba(255, 255, 255, 0.6) 0px 1px 0;
+	color: #4e525b;	
+}
+
+.dialog .contents {
+	position: absolute;
+	top: 75px;
+	width: 100%;
+	min-height: 929px; 
+}
+body.landscape > .dialog .contents {
+	min-height: 673px; 
+}
+
+.dialog ul.list {
+	width: 100%;
+	min-height: 929px; 
+}
+body.landscape > .dialog ul.list {
+	min-height: 673px; 
+}
+
+

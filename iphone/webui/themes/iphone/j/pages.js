@@ -1730,13 +1730,22 @@ PlaylistDialog.prototype = {
 		this.element.addEventListener('webkitTransitionEnd', function() {
 			Element.remove(this.element);
 		}.bind(this), false);
+        
+        if (this.application.theme == 'ipad') 
+            this.element.style.webkitTransform = 'translate3d(0, 1024px, 0)';
+        else
 		this.element.style.webkitTransform = 'translate3d(0, 480px, 0)';
 	},
 	
 	build: function() {
 		this.element = document.createElement('div');
 		this.element.className = 'dialog';
+
+        if (this.application.theme == 'ipad') 
+            this.element.style.webkitTransform = 'translate3d(0, 1024px, 0)';
+        else
 		this.element.style.webkitTransform = 'translate3d(0, 480px, 0)';
+
 		this.element.style.webkitTransitionProperty = '-webkit-transform';
 		this.element.style.webkitTransitionDuration = '500ms';
 		
