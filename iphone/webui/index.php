@@ -294,6 +294,8 @@
 
 		case 'watchfolder':
 			$dbHandle = new PDO('sqlite:../controller.sqlite3');
+			$dbHandle->exec('PRAGMA temp_store=2');
+				
 			$dbHandle->exec('CREATE TABLE IF NOT EXISTS watchlist (path text PRIMARY KEY, stale int(11), firstseen int(11), lastseen int(11))');
 
 			if (isset($_GET['command']) && $_GET['command'] == 'unmark') {
@@ -359,7 +361,6 @@
 				
 				$select = $dbHandle->prepare('SELECT path, stale FROM watchlist WHERE stale < 2 ORDER BY firstseen DESC');
 				$select->execute();
-				
 				
 				$result = $select->fetchAll();
 				$files = array();
