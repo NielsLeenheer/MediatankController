@@ -612,14 +612,14 @@ body.offline #remote .toolbar {
 	-webkit-border-image: url(../i/c/button-focus.png) 0 5 0 5;
 }
 #remote #buttons .group embed {
-    width: 17px;
-    height: 17px;
-    padding-top: 5px;
+    width: 25px;
+    height: 25px;
+    padding-top: 7px;
 }
 #remote #buttons .group.large embed {
-    width: 17px;
-    height: 17px;
-    padding-top: 5px;
+    width: 25px;
+    height: 25px;
+    padding-top: 7px;
 }
 #remote .toolbar h1 {
 	text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
